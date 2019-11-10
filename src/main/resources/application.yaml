@@ -1,0 +1,6 @@
+server:
+  port: 4001
+
+elide:
+  json-api-path: /json
+  graphql-api-path: /graphql
