@@ -280,4 +280,3 @@ public class GraphqlController {
         return ResponseEntity.status(error.getStatus()).body(errorBody);
     }
 }
-
