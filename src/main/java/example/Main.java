@@ -13,20 +13,16 @@ import com.yahoo.elide.core.EntityDictionary;
 import com.yahoo.elide.core.filter.dialect.RSQLFilterDialect;
 import com.yahoo.elide.datastores.jpa.JpaDataStore;
 import com.yahoo.elide.datastores.jpa.transaction.NonJtaTransaction;
-import com.yahoo.elide.resources.DefaultOpaqueUserFunction;
-import com.yahoo.elide.standalone.ElideStandalone;
 
 import com.yahoo.elide.standalone.Util;
-import com.yahoo.elide.standalone.config.ElideResourceConfig;
+import example.config.ElideConfig;
 import lombok.extern.slf4j.Slf4j;
-import org.glassfish.jersey.internal.inject.InstanceBinding;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 
 import javax.persistence.EntityManagerFactory;
 import java.util.Arrays;
@@ -36,28 +32,29 @@ import java.util.TimeZone;
  * Example app using Elide library.
  */
 @Slf4j
-@SpringBootApplication(scanBasePackages = {"example", "example.controllers", "example.config"})
+@SpringBootApplication
 public class Main {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Main.class, args);
     }
 
     @Bean
-    Elide initializeElide(AutowireCapableBeanFactory beanFactory) throws Exception {
+    Elide initializeElide(AutowireCapableBeanFactory beanFactory, ElideConfig config) throws Exception {
         //If JDBC_DATABASE_URL is not set, we'll run with H2 in memory.
         boolean inMemory = (System.getenv("JDBC_DATABASE_URL") == null);
 
-        Settings settings = new Settings(inMemory) {};
+        Settings old_settings = new Settings(inMemory) {};
 
-        settings.runLiquibaseMigrations();
+        old_settings.runLiquibaseMigrations();
 
-        EntityManagerFactory entityManagerFactory = Util.getEntityManagerFactory(settings.getModelPackageName(),
-                settings.getDatabaseProperties());
+        EntityManagerFactory entityManagerFactory = Util.getEntityManagerFactory(config.getModelPackage(),
+                old_settings.getDatabaseProperties());
+
         DataStore dataStore = new JpaDataStore(
                 () -> { return entityManagerFactory.createEntityManager(); },
                 (em -> { return new NonJtaTransaction(em); }));
 
-        EntityDictionary dictionary = new EntityDictionary(settings.getCheckMappings(), beanFactory::autowireBean);
+        EntityDictionary dictionary = new EntityDictionary(old_settings.getCheckMappings(), beanFactory::autowireBean);
 
         ElideSettingsBuilder builder = new ElideSettingsBuilder(dataStore)
                 .withUseFilterExpressions(true)

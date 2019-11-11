@@ -7,7 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 @Data
 @ConfigurationProperties(prefix = "elide")
 @ComponentScan
-public class ElideSettings {
+public class ElideConfig {
     private ControllerConfig jsonApi;
     private ControllerConfig graphql;
+    private String modelPackage;
 }
