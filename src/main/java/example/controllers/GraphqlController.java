@@ -27,6 +27,7 @@ import graphql.ExecutionResult;
 import graphql.GraphQL;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,8 +54,9 @@ import javax.ws.rs.core.Response;
  */
 @Slf4j
 @RestController
-@RequestMapping(value = "${elide.graphql-api-path}")
+@RequestMapping(value = "${elide.graphql.path}")
 @EnableConfigurationProperties(example.config.ElideSettings.class)
+@ConditionalOnExpression("${elide.graphql.enabled:false}")
 public class GraphqlController {
 
     private final Elide elide;

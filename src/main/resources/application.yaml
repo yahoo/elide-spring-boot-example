@@ -2,5 +2,9 @@ server:
   port: 4001
 
 elide:
-  json-api-path: /json
-  graphql-api-path: /graphql
+  json-api:
+    path: /json
+    enabled: true
+  graphql:
+    path: /graphql
+    enabled: true

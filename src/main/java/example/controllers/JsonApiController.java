@@ -5,6 +5,7 @@ import com.yahoo.elide.ElideResponse;
 import example.config.ElideSettings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,9 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "${elide.json-api-path}")
+@RequestMapping(value = "${elide.json-api.path}")
 @EnableConfigurationProperties(ElideSettings.class)
+@ConditionalOnExpression("${elide.json-api.enabled:false}")
 public class JsonApiController {
 
     private final Elide elide;
@@ -37,7 +39,7 @@ public class JsonApiController {
     @GetMapping(value = "/**")
     public ResponseEntity<String> elideGet(@RequestParam Map<String, String> allRequestParams,
                                            HttpServletRequest request, Principal authentication) {
-        String pathname = getJsonApiPath(request, settings.getJsonApiPath());
+        String pathname = getJsonApiPath(request, settings.getJsonApi().getPath());
 
         ElideResponse response = elide.get(pathname, new MultivaluedHashMap<>(allRequestParams), authentication);
         return ResponseEntity.status(response.getResponseCode()).body(response.getBody());

@@ -8,6 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 @ConfigurationProperties(prefix = "elide")
 @ComponentScan
 public class ElideSettings {
-    private String jsonApiPath = "/json";
-    private String graphqlApiPath = "/graphql";
+    private ControllerConfig jsonApi;
+    private ControllerConfig graphql;
 }

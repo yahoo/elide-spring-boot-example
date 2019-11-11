@@ -6,7 +6,6 @@
 
 package example;
 
-import com.google.common.collect.Lists;
 import com.yahoo.elide.contrib.swagger.SwaggerBuilder;
 import com.yahoo.elide.core.EntityDictionary;
 import com.yahoo.elide.standalone.config.ElideStandaloneSettings;
@@ -20,13 +19,10 @@ import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.resource.ClassLoaderResourceAccessor;
-import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.servlet.ServletContextHandler;
 
 import java.io.IOException;
 import java.sql.DriverManager;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
@@ -109,20 +105,6 @@ public abstract class Settings implements ElideStandaloneSettings {
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
-    }
-
-    @Override
-    public void updateServletContextHandler(ServletContextHandler servletContextHandler) {
-       ResourceHandler resource_handler = new ResourceHandler();
-
-       try {
-           resource_handler.setDirectoriesListed(false);
-           resource_handler.setResourceBase(Settings.class.getClassLoader()
-                   .getResource("META-INF/resources/").toURI().toString());
-           servletContextHandler.insertHandler(resource_handler);
-       } catch (Exception e) {
-           throw new IllegalStateException(e);
-       }
     }
 
     protected Properties getInMemoryProps() {
