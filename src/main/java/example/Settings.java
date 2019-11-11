@@ -10,7 +10,6 @@ import com.google.common.collect.Lists;
 import com.yahoo.elide.contrib.swagger.SwaggerBuilder;
 import com.yahoo.elide.core.EntityDictionary;
 import com.yahoo.elide.standalone.config.ElideStandaloneSettings;
-import example.filters.CorsFilter;
 import example.models.ArtifactGroup;
 import example.models.ArtifactProduct;
 import example.models.ArtifactVersion;
@@ -110,11 +109,6 @@ public abstract class Settings implements ElideStandaloneSettings {
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
-    }
-
-    @Override
-    public List<Class<?>> getFilters() {
-        return Lists.newArrayList(CorsFilter.class);
     }
 
     @Override
