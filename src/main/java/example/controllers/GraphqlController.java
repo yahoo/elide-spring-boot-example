@@ -28,6 +28,8 @@ import graphql.GraphQL;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,8 +94,8 @@ public class GraphqlController {
      * @return response
      */
     @PostMapping(value = "/**", consumes = JSON_CONTENT_TYPE)
-    public Response post(@RequestBody String graphQLDocument,
-                         HttpServletRequest request, Principal user) {
+    public ResponseEntity<String> post(@RequestBody String graphQLDocument,
+                                       HttpServletRequest request, Principal user) {
         ObjectMapper mapper = elide.getMapper().getObjectMapper();
 
         JsonNode topLevel;
@@ -107,7 +109,7 @@ public class GraphqlController {
             return buildErrorResponse(new InvalidEntityBodyException(graphQLDocument), false);
         }
 
-        Function<JsonNode, Response> executeRequest =
+        Function<JsonNode, ResponseEntity<String>> executeRequest =
                 (node) -> executeGraphQLRequest(mapper, user, graphQLDocument, node);
 
         if (topLevel.isArray()) {
@@ -121,7 +123,7 @@ public class GraphqlController {
                     .map(executeRequest)
                     .map(response -> {
                         try {
-                            return mapper.readTree((String) response.getEntity());
+                            return mapper.readTree((String) response.getBody());
                         } catch (IOException e) {
                             log.debug("Caught an IO exception while trying to read response body");
                             return JsonNodeFactory.instance.objectNode();
@@ -131,17 +133,17 @@ public class GraphqlController {
                             (arrayNode, node) -> arrayNode.add(node),
                             (left, right) -> left.addAll(right));
             try {
-                return Response.ok(mapper.writeValueAsString(result)).build();
+                return ResponseEntity.status(HttpStatus.OK).body(mapper.writeValueAsString(result));
             } catch (IOException e) {
                 log.error("An unexpected error occurred trying to serialize array response.", e);
-                return Response.serverError().build();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
         }
 
         return executeRequest.apply(topLevel);
     }
 
-    private Response executeGraphQLRequest(
+    private ResponseEntity<String> executeGraphQLRequest(
             ObjectMapper mapper,
             Principal principal,
             String graphQLDocument,
@@ -153,7 +155,7 @@ public class GraphqlController {
             isVerbose = requestScope.getPermissionExecutor().isVerbose();
 
             if (!jsonDocument.has(QUERY)) {
-                return Response.status(400).entity("A `query` key is required.").build();
+                return ResponseEntity.status(400).body("A `query` key is required.");
             }
 
             String query = jsonDocument.get(QUERY).asText();
@@ -205,10 +207,10 @@ public class GraphqlController {
                 requestScope.getPermissionExecutor().printCheckStats();
             }
 
-            return Response.ok(mapper.writeValueAsString(result)).build();
+            return ResponseEntity.status(HttpStatus.OK).body(mapper.writeValueAsString(result));
         } catch (WebApplicationException e) {
             log.debug("WebApplicationException", e);
-            return e.getResponse();
+            return ResponseEntity.status(e.getResponse().getStatus()).body(e.getResponse().getEntity().toString());
         } catch (JsonProcessingException e) {
             log.debug("Invalid json body provided to GraphQL", e);
             return buildErrorResponse(new InvalidEntityBodyException(graphQLDocument), isVerbose);
@@ -251,7 +253,7 @@ public class GraphqlController {
         }
     }
 
-    private Response buildErrorResponse(HttpStatusException error, boolean isVerbose) {
+    private ResponseEntity<String> buildErrorResponse(HttpStatusException error, boolean isVerbose) {
         ObjectMapper mapper = elide.getMapper().getObjectMapper();
         JsonNode errorNode;
         boolean encodeErrorResponses = elide.getElideSettings().isEncodeErrorResponses();
@@ -275,9 +277,7 @@ public class GraphqlController {
         } catch (JsonProcessingException e) {
             errorBody = errorNode.toString();
         }
-        return Response.status(error.getStatus())
-                .entity(errorBody)
-                .build();
+        return ResponseEntity.status(error.getStatus()).body(errorBody);
     }
 }
 
