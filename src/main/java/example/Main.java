@@ -16,6 +16,7 @@ import com.yahoo.elide.datastores.jpa.transaction.NonJtaTransaction;
 
 import com.yahoo.elide.standalone.Util;
 import example.config.ElideConfig;
+import liquibase.integration.spring.SpringLiquibase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -23,8 +24,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.TimeZone;
 
@@ -38,17 +42,23 @@ public class Main {
         SpringApplication.run(Main.class, args);
     }
 
+    @Bean("liquibaseMigration")
+    public SpringLiquibase liquibase(DataSource dataSource) {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setChangeLog("classpath:db/changelog/changelog.xml");
+        liquibase.setDataSource(dataSource);
+        return liquibase;
+    }
+
     @Bean
-    Elide initializeElide(AutowireCapableBeanFactory beanFactory, ElideConfig config) throws Exception {
+    @DependsOn("liquibaseMigration")
+    Elide initializeElide(AutowireCapableBeanFactory beanFactory,
+                          ElideConfig config,
+                          EntityManagerFactory entityManagerFactory) throws Exception {
         //If JDBC_DATABASE_URL is not set, we'll run with H2 in memory.
         boolean inMemory = (System.getenv("JDBC_DATABASE_URL") == null);
 
         Settings old_settings = new Settings(inMemory) {};
-
-        old_settings.runLiquibaseMigrations();
-
-        EntityManagerFactory entityManagerFactory = Util.getEntityManagerFactory(config.getModelPackage(),
-                old_settings.getDatabaseProperties());
 
         DataStore dataStore = new JpaDataStore(
                 () -> { return entityManagerFactory.createEntityManager(); },

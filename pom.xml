@@ -9,7 +9,7 @@
     <properties>
         <jar.finalName>elide-spring-boot</jar.finalName>
         <postgres.version>42.2.7</postgres.version>
-        <liquibase.version>3.5.3</liquibase.version>
+        <liquibase.version>3.8.1</liquibase.version>
         <elide.version>4.5.6</elide.version>
         <spring.version>2.2.1.RELEASE</spring.version>
         <spring.security.version>5.2.1.RELEASE</spring.security.version>
@@ -67,8 +67,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>2.2.0.RELEASE</version>
+            <version>${spring.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring.version}</version>
         </dependency>
 
         <!-- Spring Security -->
@@ -89,7 +94,6 @@
             <artifactId>snakeyaml</artifactId>
             <version>1.25</version>
         </dependency>
-
 
 
         <dependency>
