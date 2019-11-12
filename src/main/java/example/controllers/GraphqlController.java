@@ -50,7 +50,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 /**
- * Default endpoint/servlet for using Elide and JSONAPI.
+ * Spring rest controller for Elide GraphQL.
  */
 @Slf4j
 @RestController
@@ -68,6 +68,7 @@ public class GraphqlController {
     private static final String VARIABLES = "variables";
     private static final String MUTATION = "mutation";
     private static final String JSON_CONTENT_TYPE = "application/json";
+
 
     @Autowired
     public GraphqlController(Elide elide, ElideConfigProperties settings) {
