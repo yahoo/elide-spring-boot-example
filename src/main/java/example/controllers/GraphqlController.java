@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 
-import example.config.ElideConfig;
+import example.config.ElideConfigProperties;
 import org.apache.commons.lang3.tuple.Pair;
 import org.owasp.encoder.Encode;
 
@@ -55,12 +55,12 @@ import javax.ws.rs.core.Response;
 @Slf4j
 @RestController
 @RequestMapping(value = "${elide.graphql.path}")
-@EnableConfigurationProperties(ElideConfig.class)
+@EnableConfigurationProperties(ElideConfigProperties.class)
 @ConditionalOnExpression("${elide.graphql.enabled:false}")
 public class GraphqlController {
 
     private final Elide elide;
-    private final ElideConfig elideConfig;
+    private final ElideConfigProperties elideConfigProperties;
     private GraphQL api;
 
     private static final String QUERY = "query";
@@ -70,10 +70,10 @@ public class GraphqlController {
     private static final String JSON_CONTENT_TYPE = "application/json";
 
     @Autowired
-    public GraphqlController(Elide elide, ElideConfig settings) {
+    public GraphqlController(Elide elide, ElideConfigProperties settings) {
         log.debug("Started ~~");
 
-        this.elideConfig = settings;
+        this.elideConfigProperties = settings;
         this.elide = elide;
 
         PersistentResourceFetcher fetcher = new PersistentResourceFetcher(elide.getElideSettings());

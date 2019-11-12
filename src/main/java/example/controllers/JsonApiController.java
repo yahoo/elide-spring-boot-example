@@ -2,7 +2,7 @@ package example.controllers;
 
 import com.yahoo.elide.Elide;
 import com.yahoo.elide.ElideResponse;
-import example.config.ElideConfig;
+import example.config.ElideConfigProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
@@ -22,15 +22,15 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping(value = "${elide.json-api.path}")
-@EnableConfigurationProperties(ElideConfig.class)
+@EnableConfigurationProperties(ElideConfigProperties.class)
 @ConditionalOnExpression("${elide.json-api.enabled:false}")
 public class JsonApiController {
 
     private final Elide elide;
-    private final ElideConfig settings;
+    private final ElideConfigProperties settings;
 
     @Autowired
-    public JsonApiController(Elide elide, ElideConfig settings) {
+    public JsonApiController(Elide elide, ElideConfigProperties settings) {
         log.debug("Started ~~");
         this.settings = settings;
         this.elide = elide;
