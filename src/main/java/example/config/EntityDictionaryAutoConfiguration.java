@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
 import java.util.HashMap;
 
 @Configuration
-public class EntityDictionaryConfig {
+@ConditionalOnMissingBean(EntityDictionary.class)
+public class EntityDictionaryAutoConfiguration {
 
     @Bean
-    @ConditionalOnMissingBean(EntityDictionary.class)
     EntityDictionary buildDictionary(AutowireCapableBeanFactory beanFactory) {
         return new EntityDictionary(new HashMap<>(), beanFactory::autowireBean);
     }

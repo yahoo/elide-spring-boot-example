@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Configuration;
 import javax.persistence.EntityManagerFactory;
 
 @Configuration
-public class DataStoreConfig {
+@ConditionalOnMissingBean(DataStore.class)
+public class DataStoreAutoConfiguration {
 
     @Bean
-    @ConditionalOnMissingBean(DataStore.class)
     DataStore buildDataStore(EntityManagerFactory entityManagerFactory) {
         return new JpaDataStore(
                 () -> { return entityManagerFactory.createEntityManager(); },

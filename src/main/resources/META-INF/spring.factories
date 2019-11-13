@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+ example.config.DataStoreAutoConfiguration,\
+ example.config.ElideAutoConfiguration,\
+ example.config.EntityDictionaryAutoConfiguration,\
+ example.config.SwaggerAutoConfiguration

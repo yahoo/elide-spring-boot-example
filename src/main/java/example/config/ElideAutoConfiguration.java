@@ -5,22 +5,19 @@ import com.yahoo.elide.ElideSettingsBuilder;
 import com.yahoo.elide.core.DataStore;
 import com.yahoo.elide.core.EntityDictionary;
 import com.yahoo.elide.core.filter.dialect.RSQLFilterDialect;
-import com.yahoo.elide.datastores.jpa.JpaDataStore;
-import example.datastore.SpringDataTransaction;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.TimeZone;
 
 @Configuration
-public class ElideConfig {
+@ConditionalOnMissingBean(Elide.class)
+public class ElideAutoConfiguration {
 
     @Bean
     @DependsOn("liquibaseMigration")
-    @ConditionalOnMissingBean(Elide.class)
     Elide initializeElide(EntityDictionary dictionary,
                           DataStore dataStore) throws Exception {
 
