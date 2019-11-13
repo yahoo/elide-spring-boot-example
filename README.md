@@ -1,5 +1,3 @@
-# Elide Example
+# Elide Spring Boot
 
-An archetype Elide project for Heroku using Postgres DB.  
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/aklish/elide-heroku-example)
+An archetype Elide project using Spring Boot.

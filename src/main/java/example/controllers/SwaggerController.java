@@ -16,6 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Spring REST controller for exposing Swagger documentation.
+ */
 @Slf4j
 @RestController
 @RequestMapping(value = "${elide.swagger.path}")
@@ -29,7 +32,6 @@ public class SwaggerController {
      *
      * @param docs Map of path parameter name to swagger document.
      */
-    /*
     @Autowired(required = false)
     public SwaggerController(Map<String, Swagger> docs) {
         log.debug("Started ~~");
@@ -39,9 +41,8 @@ public class SwaggerController {
             documents.put(key, SwaggerBuilder.getDocument(value));
         });
     }
-    */
 
-    @Autowired
+    @Autowired(required = false)
     public SwaggerController(Swagger doc) {
         log.debug("Started ~~");
         documents = new HashMap<>();

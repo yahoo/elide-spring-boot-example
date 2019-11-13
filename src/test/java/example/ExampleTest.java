@@ -119,4 +119,12 @@ public class ExampleTest extends IntegrationTest {
             ).toResponse()))
             .statusCode(HttpStatus.SC_OK);
     }
+
+    @Test
+    void swaggerDocumentTest() {
+        when()
+                .get("/doc")
+                .then()
+                .statusCode(HttpStatus.SC_OK);
+    }
 }

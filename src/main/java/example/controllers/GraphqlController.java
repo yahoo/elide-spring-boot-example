@@ -91,9 +91,9 @@ public class GraphqlController {
     }
 
     /**
-     * Create handler.
+     * Single entry point for GraphQL requests.
      *
-     * @param graphQLDocument post data as jsonapi document
+     * @param graphQLDocument post data as json document
      * @return response
      */
     @PostMapping(value = {"/**", ""}, consumes = JSON_CONTENT_TYPE, produces = JSON_CONTENT_TYPE)

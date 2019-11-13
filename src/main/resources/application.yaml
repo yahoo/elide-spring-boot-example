@@ -14,6 +14,7 @@ elide:
     enabled: true
     version: "1.0"
 
+
 spring:
   jpa:
     hibernate:
@@ -29,3 +30,6 @@ spring:
     username: 'sa'
     password: ''
     driver-class-name: 'org.h2.Driver'
+  liquibase:
+    change-log: 'classpath:db/changelog/changelog.xml'
+
