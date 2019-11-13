@@ -11,5 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class ElideConfigProperties {
     private ControllerProperties jsonApi;
     private ControllerProperties graphql;
+    private SwaggerControllerProperties swagger;
     private String modelPackage;
 }

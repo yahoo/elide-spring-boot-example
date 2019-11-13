@@ -96,7 +96,7 @@ public class GraphqlController {
      * @param graphQLDocument post data as jsonapi document
      * @return response
      */
-    @PostMapping(value = "/**", consumes = JSON_CONTENT_TYPE)
+    @PostMapping(value = {"/**", ""}, consumes = JSON_CONTENT_TYPE, produces = JSON_CONTENT_TYPE)
     public ResponseEntity<String> post(@RequestBody String graphQLDocument,
                                        HttpServletRequest request, Principal user) {
         ObjectMapper mapper = elide.getMapper().getObjectMapper();

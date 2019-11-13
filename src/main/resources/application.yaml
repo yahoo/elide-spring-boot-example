@@ -9,6 +9,10 @@ elide:
   graphql:
     path: /graphql
     enabled: true
+  swagger:
+    path: /doc
+    enabled: true
+    version: "1.0"
 
 spring:
   jpa:

@@ -59,7 +59,7 @@ public class JsonApiController {
         this.elide = elide;
     }
 
-    @GetMapping(value = "/**")
+    @GetMapping(value = "/**", produces = JSON_API_CONTENT_TYPE)
     public ResponseEntity<String> elideGet(@RequestParam Map<String, String> allRequestParams,
                                            HttpServletRequest request, Principal authentication) {
         String pathname = getJsonApiPath(request, settings.getJsonApi().getPath());
@@ -68,7 +68,7 @@ public class JsonApiController {
         return ResponseEntity.status(response.getResponseCode()).body(response.getBody());
     }
 
-    @PostMapping(value = "/**", consumes = JSON_API_CONTENT_TYPE)
+    @PostMapping(value = "/**", consumes = JSON_API_CONTENT_TYPE, produces = JSON_API_CONTENT_TYPE)
     public ResponseEntity<String> elidePost(@RequestBody String body,
                                             HttpServletRequest request, Principal authentication) {
         String pathname = getJsonApiPath(request, settings.getJsonApi().getPath());
