@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ConfigurationProperties(prefix = "elide")
 @ComponentScan
 public class ElideConfigProperties {
-    private ControllerConfig jsonApi;
-    private ControllerConfig graphql;
+    private ControllerProperties jsonApi;
+    private ControllerProperties graphql;
     private String modelPackage;
 }
