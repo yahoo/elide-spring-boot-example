@@ -1,3 +1,9 @@
+/*
+ * Copyright 2019, Aaron Klish
+ * Licensed under the Apache License, Version 2.0
+ * See LICENSE file in project root for terms.
+ */
+
 package example.controllers;
 
 import com.yahoo.elide.contrib.swagger.SwaggerBuilder;

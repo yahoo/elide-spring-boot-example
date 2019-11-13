@@ -1,3 +1,10 @@
+/*
+ * Copyright 2019, Aaron Klish
+ * Copyright 2019, Yahoo
+ * Licensed under the Apache License, Version 2.0
+ * See LICENSE file in project root for terms.
+ */
+
 package example.controllers;
 
 import com.yahoo.elide.Elide;
