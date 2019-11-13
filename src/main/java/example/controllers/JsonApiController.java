@@ -41,7 +41,7 @@ public class JsonApiController {
 
     private final Elide elide;
     private final ElideConfigProperties settings;
-    private static final String JSON_API_CONTENT_TYPE = "application/vnd.api+json";
+    public static final String JSON_API_CONTENT_TYPE = "application/vnd.api+json";
 
     @Autowired
     public JsonApiController(Elide elide, ElideConfigProperties settings) {
