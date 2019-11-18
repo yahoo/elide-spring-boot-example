@@ -8,57 +8,51 @@
 
     <properties>
         <jar.finalName>elide-spring-boot</jar.finalName>
-        <postgres.version>42.2.7</postgres.version>
         <liquibase.version>3.8.1</liquibase.version>
-        <elide.version>4.5.6</elide.version>
+        <elide.version>4.5.7-SNAPSHOT</elide.version>
         <spring.version>2.2.1.RELEASE</spring.version>
-        <spring.security.version>5.2.1.RELEASE</spring.security.version>
-        <swagger-ui.version>3.23.8</swagger-ui.version>
     </properties>
 
     <dependencies>
-        <!-- Elide dependencies for example -->
+
+        <!-- Runtime -->
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
-            <artifactId>elide-core</artifactId>
-            <version>${elide.version}</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
         </dependency>
 
         <dependency>
             <groupId>com.yahoo.elide</groupId>
-            <artifactId>elide-graphql</artifactId>
+            <artifactId>elide-spring-boot-starter</artifactId>
             <version>${elide.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
-            <artifactId>elide-annotations</artifactId>
-            <version>${elide.version}</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.197</version>
         </dependency>
 
         <dependency>
-            <groupId>com.yahoo.elide</groupId>
-            <artifactId>elide-datastore-jpa</artifactId>
-            <version>${elide.version}</version>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.yahoo.elide</groupId>
-            <artifactId>elide-swagger</artifactId>
-            <version>${elide.version}</version>
-        </dependency>
+        <!--<dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jaxb-annotations</artifactId>
+            <version>2.10.0</version>
+        </dependency>-->
+
+        <!-- Test -->
 
         <dependency>
             <groupId>com.yahoo.elide</groupId>
             <artifactId>elide-test-helpers</artifactId>
             <version>${elide.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
         </dependency>
 
         <dependency>
@@ -70,53 +64,11 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jetty</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
 
-        <!-- YAML for spring config -->
-        <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>1.25</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgres.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.197</version>
-        </dependency>
-
-        <!-- Test -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -131,17 +83,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <version>${liquibase.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-jaxb-annotations</artifactId>
-            <version>2.10.0</version>
-        </dependency>
     </dependencies>
 
     <build>

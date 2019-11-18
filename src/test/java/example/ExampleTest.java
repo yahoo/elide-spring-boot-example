@@ -7,7 +7,7 @@ package example;
 
 import com.yahoo.elide.contrib.testhelpers.graphql.GraphQLDSL;
 import com.yahoo.elide.core.HttpStatus;
-import example.controllers.JsonApiController;
+import com.yahoo.elide.spring.controllers.JsonApiController;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.jdbc.Sql;
 
