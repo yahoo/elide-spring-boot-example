@@ -9,7 +9,7 @@
     <properties>
         <jar.finalName>elide-spring-boot</jar.finalName>
         <liquibase.version>3.8.1</liquibase.version>
-        <elide.version>4.5.7-SNAPSHOT</elide.version>
+        <elide.version>4.5.7</elide.version>
         <spring.version>2.2.1.RELEASE</spring.version>
     </properties>
 
