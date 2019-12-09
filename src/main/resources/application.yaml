@@ -4,16 +4,15 @@ server:
 elide:
   modelPackage: 'example.models'
   json-api:
-    path: /json
+    path: /api/v1
     enabled: true
   graphql:
-    path: /graphql
+    path: /graphql/api/v1
     enabled: true
   swagger:
     path: /doc
     enabled: true
     version: "1.0"
-
 
 spring:
   jpa:
@@ -21,7 +20,7 @@ spring:
       show_sql: true
       naming:
         physical-strategy: 'org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl'
-      dialect: 'org.hibernate.dialect.H2Dialect'
+      dialect: 'org.hibernate.dialect.PostgreSQLDialect'
       ddl-auto: 'validate'
       jdbc:
         use_scrollable_resultset: true
