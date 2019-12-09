@@ -1,7 +1,7 @@
 elide:
   modelPackage: 'example.models'
   json-api:
-    path: /api2/v1
+    path: /api/v1
     enabled: true
   graphql:
     path: /graphql/api/v1

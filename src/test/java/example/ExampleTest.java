@@ -46,7 +46,7 @@ public class ExampleTest extends IntegrationTest {
     })
     void jsonApiGetTest() {
         when()
-                .get("/api2/v1/group")
+                .get("/api/v1/group")
                 .then()
                 .log().all()
                 .body(equalTo(
@@ -89,12 +89,12 @@ public class ExampleTest extends IntegrationTest {
                 )
             )
             .when()
-                .patch("/api2/v1/group/com.example.repository")
+                .patch("/api/v1/group/com.example.repository")
             .then()
                 .statusCode(HttpStatus.SC_NO_CONTENT);
 
         when()
-                .get("/api2/v1/group")
+                .get("/api/v1/group")
                 .then()
                 .log().all()
                 .body(equalTo(
@@ -135,7 +135,7 @@ public class ExampleTest extends IntegrationTest {
                         )
                 )
                 .when()
-                .post("/api2/v1/group")
+                .post("/api/v1/group")
                 .then()
                 .body(equalTo(datum(
                         resource(
@@ -161,7 +161,7 @@ public class ExampleTest extends IntegrationTest {
     })
     void jsonApiDeleteTest() {
         when()
-            .delete("/api2/v1/group/com.example.repository")
+            .delete("/api/v1/group/com.example.repository")
         .then()
             .statusCode(HttpStatus.SC_NO_CONTENT);
     }
@@ -181,7 +181,7 @@ public class ExampleTest extends IntegrationTest {
                 linkage(type("product"), id("foo"))
             ))
         .when()
-                .delete("/api2/v1/group/com.example.repository")
+                .delete("/api/v1/group/com.example.repository")
                 .then()
                 .statusCode(HttpStatus.SC_NO_CONTENT);
     }
