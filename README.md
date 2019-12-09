@@ -4,6 +4,9 @@ An archetype Elide project using Spring Boot.
 
 ## To build and run:
 
-1. mvn clean install
-2. mvn exec:java -Dexec.mainClass="example.App"
-3. Load in a browser : localhost:4001
+1. mvn clean package spring-boot:repackage
+2. java -jar target/elide-spring-boot-1.0.jar
+
+
+## JsonAPI Example Request
+`curl 'http://localhost:4001/json/group/com.yahoo.elide/products'`
