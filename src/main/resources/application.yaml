@@ -29,6 +29,6 @@ spring:
     url: ${JDBC_DATABASE_URL}
     username: ${JDBC_DATABASE_USERNAME}
     password: ${JDBC_DATABASE_PASSWORD}
-    driver-class-name: 'org.hibernate.dialect.PostgreSQLDialect'
+    driver-class-name: 'org.postgresql.Driver'
   liquibase:
     change-log: 'classpath:db/changelog/changelog.xml'
