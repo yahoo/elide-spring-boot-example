@@ -1,5 +1,5 @@
 server:
-  port: 4001
+  port: ${PORT}
 
 elide:
   modelPackage: 'example.models'
@@ -26,10 +26,9 @@ spring:
       jdbc:
         use_scrollable_resultset: true
   datasource:
-    url: 'jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1'
-    username: 'sa'
-    password: ''
-    driver-class-name: 'org.h2.Driver'
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+    driver-class-name: 'org.hibernate.dialect.PostgreSQLDialect'
   liquibase:
     change-log: 'classpath:db/changelog/changelog.xml'
-
