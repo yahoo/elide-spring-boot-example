@@ -46,26 +46,26 @@ public class ExampleTest extends IntegrationTest {
     })
     void jsonApiGetTest() {
         when()
-                .get("/api/v1/group")
-                .then()
-                .log().all()
-                .body(equalTo(
-                        data(
-                                resource(
-                                        type( "group"),
-                                        id("com.example.repository"),
-                                        attributes(
-                                                attr("commonName", "Example Repository"),
-                                                attr("description", "The code for this project")
-                                        ),
-                                        relationships(
-                                                relation("products")
-                                        )
-                                )
-                        ).toJSON())
-                )
-                .log().all()
-                .statusCode(HttpStatus.SC_OK);
+            .get("/api/v1/group")
+            .then()
+            .log().all()
+            .body(equalTo(
+                data(
+                    resource(
+                        type( "group"),
+                        id("com.example.repository"),
+                        attributes(
+                            attr("commonName", "Example Repository"),
+                            attr("description", "The code for this project")
+                        ),
+                        relationships(
+                            relation("products")
+                        )
+                    )
+                ).toJSON())
+            )
+            .log().all()
+            .statusCode(HttpStatus.SC_OK);
     }
 
     @Test
@@ -189,9 +189,7 @@ public class ExampleTest extends IntegrationTest {
     /**
      * This test demonstrates an example test using the GraphQL DSL.
      */
-    //@Test
-    //TODO - there are extra JSON nodes in the GraphQL response.  Elide needs a small fix.  The endpoint works
-    //but just returns extra json.
+    @Test
     void graphqlTest() {
         given()
             .contentType(MediaType.APPLICATION_JSON)
