@@ -5,17 +5,17 @@
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) [${springAppName:-Elide}, %X{X-B3-TraceId:-}] %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) [${springAppName}, %X{X-B3-TraceId:-}] %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
         </encoder>
     </appender>
 
     <appender name="LOGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${logDir:-/tmp}/server.log</file>
+        <file>${logDir}/server.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] [${springAppName:-Elide}, %X{X-B3-TraceId:-}] %-5level %logger{36}.%M - %msg%n</Pattern>
+            <Pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] [${springAppName}, %X{X-B3-TraceId:-}] %-5level %logger{36}.%M - %msg%n</Pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${logDir:-/tmp}/archived/server_%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${logDir}/archived/server_%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
             <totalSizeCap>100MB</totalSizeCap>
         </rollingPolicy>
