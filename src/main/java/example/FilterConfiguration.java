@@ -17,8 +17,7 @@ import org.springframework.context.annotation.Configuration;
 public class FilterConfiguration {
 
     @Bean
-    @Autowired
-    public FilterRegistrationBean requestResponseFilter(ElideConfigProperties elideConfig) {
+    public FilterRegistrationBean requestResponseFilter() {
         final FilterRegistrationBean<TeeFilter> filterRegBean = new FilterRegistrationBean<>();
         TeeFilter filter = new TeeFilter();
         filterRegBean.setFilter(filter);
