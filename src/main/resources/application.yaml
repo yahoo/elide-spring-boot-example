@@ -18,6 +18,8 @@ elide:
     version: "1.0"
 
 spring:
+  application:
+    name: Elide
   jpa:
     hibernate:
       show_sql: true
@@ -36,6 +38,9 @@ spring:
     change-log: 'classpath:db/changelog/changelog.xml'
 server:
   port: 8080
+
+logging:
+  path: /tmp
 
 ---
 
@@ -59,4 +64,5 @@ spring:
     change-log: 'classpath:db/changelog/changelog.xml'
 server:
   port: ${PORT}
+
 
