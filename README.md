@@ -13,6 +13,10 @@ To build and run:
 1. mvn clean install
 2. java -jar target/elide-spring-boot-1.0.jar
 
+To run from Heroku:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/yahoo/elide-spring-boot-example)
+
 ## Usage
 
 See [Elide's Getting Started documentation](https://elide.io/pages/guide/01-start.html).
