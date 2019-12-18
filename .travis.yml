@@ -1,0 +1,8 @@
+---
+  language: java
+  sudo: false
+  jdk:
+    - openjdk8
+  cache:
+    directories:
+      - "~/.m2"
