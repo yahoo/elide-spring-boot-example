@@ -34,6 +34,7 @@
        status varchar(255) NOT NULL,
        createdOn timestamp NOT NULL,
        updatedOn timestamp NOT NULL,
+       naturalkey varchar(255) NOT NULL,
        PRIMARY KEY (id)
      );
 
@@ -45,6 +46,7 @@
        createdOn timestamp NOT NULL,
        updatedOn timestamp NOT NULL,
        query_id binary NOT NULL,
+       naturalkey varchar(255) NOT NULL,
        PRIMARY KEY (id),
        FOREIGN KEY (query_id) REFERENCES AsyncQuery(id)
      );
