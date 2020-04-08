@@ -27,7 +27,7 @@
     );
     
     CREATE TABLE AsyncQuery (
-       id varchar(255) NOT NULL,
+       id varchar(40) NOT NULL,
        principalName varchar(255) NOT NULL,
        query varchar(1024) NOT NULL,
        queryType varchar(255) NOT NULL,
@@ -39,7 +39,7 @@
      );
 
      CREATE TABLE AsyncQueryResult (
-       id binary NOT NULL,
+       id varchar(40) NOT NULL,
        contentLength integer NOT NULL,
        responseBody varchar(10485760) NOT NULL,
        status integer NOT NULL,
