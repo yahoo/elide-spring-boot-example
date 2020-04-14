@@ -6,6 +6,7 @@
 	  name varchar(255) NOT NULL,
 	  commonName varchar(255) DEFAULT NULL,
 	  description varchar(255) DEFAULT NULL,
+          deprecated boolean,
 	  PRIMARY KEY (name)
 	);
 
@@ -25,11 +26,29 @@
 	  PRIMARY KEY (name),
 	  FOREIGN KEY (artifact_name) REFERENCES ArtifactProduct(name)
 	);
-        </sql>
+       CREATE TABLE PlayerStats (
+          name varchar(255) NOT NULL,
+          countryId varchar(255) DEFAULT NULL,
+          highScore integer DEFAULT NULL,
+          createdOn date,
+          PRIMARY KEY (name)
+        );
+        CREATE TABLE PlayerCountry (
+          id varchar(255) NOT NULL,
+          isoCode varchar(255) DEFAULT NULL,
+          PRIMARY KEY (id)
+        );
+       </sql>
     </changeSet>
     <changeSet author="admin" id="1539122270">
         <sql>
-	INSERT INTO ArtifactGroup (name, commonName, description) VALUES
+        INSERT INTO PlayerStats (name,countryId,createdOn) VALUES
+                ('SerenaWilliams','1','2000-10-01'),
+                ('SaniaMirza','2','2002-10-01');
+        INSERT INTO PlayerCountry (id,isoCode) VALUES
+	        ('1','USA'),
+                ('2','IND');
+        INSERT INTO ArtifactGroup (name, commonName, description) VALUES
 		('com.example.repository','Example Repository','The code for this project'),
 		('com.yahoo.elide','Elide','The magical library powering this project');
 
