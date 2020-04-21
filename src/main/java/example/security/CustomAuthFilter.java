@@ -18,17 +18,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
 public class CustomAuthFilter extends GenericFilterBean {
-	
-	@Override
+    
+    @Override
     public void doFilter(
       ServletRequest request, 
       ServletResponse response,
       FilterChain chain) throws IOException, ServletException {
-    	
-    	ElideSpringUser user = new ElideSpringUser("test", "{noop}test", new ArrayList<>());
-    	UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(user, user.getPassword(), new ArrayList<>());
+        
+        ElideSpringUser user = new ElideSpringUser("test", "{noop}test", new ArrayList<>());
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(user, user.getPassword(), new ArrayList<>());
 
-    	SecurityContext securityContext = SecurityContextHolder.getContext();
+        SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(authRequest);
         
         chain.doFilter(request, response);
