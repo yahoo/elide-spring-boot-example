@@ -10,7 +10,7 @@ import org.springframework.security.web.session.ConcurrentSessionFilter;
  * Remove this class if not using Async
  */
 @EnableWebSecurity
-public class ElideSpringSecurityContextConfig extends WebSecurityConfigurerAdapter {
+public class ElideSpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -19,9 +19,6 @@ public class ElideSpringSecurityContextConfig extends WebSecurityConfigurerAdapt
             .addFilterAfter(new CustomAuthFilter(), ConcurrentSessionFilter.class)
             .requestMatchers()
                 .antMatchers("/**")
-            .and()
-            .authorizeRequests()
-                .anyRequest().authenticated()
             .and()
             .formLogin().disable()
             .httpBasic()

@@ -17,12 +17,6 @@ To run from Heroku:
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/yahoo/elide-spring-boot-example)
 
-## Login Credentials
-When the login page is prompted while accessing the swagger page, please use the below credentials:
-
-1. USER - test
-2. PASSWORD - password
-
 ## Usage
 
 See [Elide's Getting Started documentation](https://elide.io/pages/guide/01-start.html).
