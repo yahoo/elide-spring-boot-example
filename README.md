@@ -12,6 +12,7 @@ To build and run:
 
 1. mvn clean install
 2. java -jar target/elide-spring-boot-1.0.jar
+3. Browse http://localhost:8080/
 
 To run from Heroku:
 
