@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 public class FilterConfiguration {
 
     @Bean
-    public FilterRegistrationBean requestResponseFilter() {
+    public FilterRegistrationBean<TeeFilter> requestResponseFilter() {
 
         final FilterRegistrationBean<TeeFilter> filterRegBean = new FilterRegistrationBean<>();
         TeeFilter filter = new TeeFilter();
