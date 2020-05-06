@@ -53,8 +53,6 @@ public class DemoSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .headers().cacheControl().disable()
                 .and()
-            .formLogin().disable().httpBasic()
-                .and()
             .authorizeRequests().antMatchers("/").permitAll()
                 .and()
             .csrf().disable();  //Allow for GraphQL POSTs
