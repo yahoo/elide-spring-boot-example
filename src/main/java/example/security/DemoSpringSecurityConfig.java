@@ -46,7 +46,7 @@ public class DemoSpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
-            .addFilterAfter(new DemoAuthFilter(), ConcurrentSessionFilter.class)
+            .addFilterAfter(new DemoAuthFilter(), ConcurrentSessionFilter.class) // use demo auth filter
             .cors()
                 .and()
             .headers().frameOptions().sameOrigin()  //Needed for Swagger and Graphiql iFrames.
@@ -90,7 +90,6 @@ public class DemoSpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
             UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(user, user.getPassword(), new ArrayList<>());
 
-            //AnonymousAuthenticationToken authRequest = new AnonymousAuthenticationToken("anonymousUser", user, user.getAuthorities());
             SecurityContext securityContext = SecurityContextHolder.getContext();
             securityContext.setAuthentication(authRequest);
             
