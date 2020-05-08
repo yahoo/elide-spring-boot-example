@@ -17,6 +17,9 @@ To run from Heroku:
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/yahoo/elide-spring-boot-example)
 
+Note: 
+The project includes an example auth filter that attaches a test user to the security context for async module operation checks. Please remove and provide your own implementation as needed. Refer src/main/java/example/security/ExampleSpringSecurityConfig.java
+
 ## Usage
 
 See [Elide's Getting Started documentation](https://elide.io/pages/guide/01-start.html).
