@@ -41,7 +41,7 @@ import example.SecurityConfigProperties;
  * You can remove this class if not using Async.
  */
 @EnableWebSecurity
-public class DemoSpringSecurityConfig extends WebSecurityConfigurerAdapter {
+public class ExampleSpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
