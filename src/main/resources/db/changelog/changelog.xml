@@ -28,7 +28,7 @@
     
     CREATE TABLE AsyncQuery (
        id varchar(36) NOT NULL,
-       principalName varchar(255) NOT NULL,
+       principalName varchar(255),
        query varchar(1024) NOT NULL,
        queryType int NOT NULL,
        status int NOT NULL,

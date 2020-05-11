@@ -53,8 +53,6 @@ server:
 logging:
   path: /tmp
 
-security:
-  origin: "*"
 ---
 
 spring:
@@ -78,5 +76,3 @@ spring:
 server:
   port: ${PORT}
 
-security:
-  origin: ${HOST}
