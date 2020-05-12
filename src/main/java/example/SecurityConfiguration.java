@@ -6,10 +6,17 @@
 
 package example;
 
+import java.time.Duration;
+import java.util.Arrays;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  * Disables security for testing.
@@ -20,6 +27,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests().antMatchers("/**").permitAll().and().csrf().disable();
+        httpSecurity
+            .authorizeRequests().antMatchers("/**").permitAll()
+                .and()
+            .csrf().disable();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource(SecurityConfigProperties properties) {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList(properties.getOrigin()));  
+        configuration.setAllowedMethods(Arrays.asList("GET", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setMaxAge(Duration.ofHours(1));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(); 
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
