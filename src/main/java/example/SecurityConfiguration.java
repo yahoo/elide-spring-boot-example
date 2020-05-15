@@ -28,6 +28,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+             .cors()
+                .and()
+             .headers().frameOptions().sameOrigin()  //Needed for Swagger and Graphiql iFrames.
+                .and()
+             .headers().cacheControl().disable()  //Disabled so we can turn on 1 hour caching.
+                .and()
             .authorizeRequests().antMatchers("/**").permitAll()
                 .and()
             .csrf().disable();
