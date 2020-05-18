@@ -34,9 +34,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
              .headers().cacheControl().disable()  //Disabled so we can turn on 1 hour caching.
                 .and()
-            .authorizeRequests().antMatchers("/**").permitAll()
+             .authorizeRequests().antMatchers("/**").permitAll()
                 .and()
-            .csrf().disable();
+             .csrf().disable();
     }
 
     @Bean
