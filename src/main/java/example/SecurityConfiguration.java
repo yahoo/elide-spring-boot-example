@@ -32,8 +32,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
              .headers().frameOptions().sameOrigin()  //Needed for Swagger and Graphiql iFrames.
                 .and()
-             .headers().cacheControl().disable()  //Disabled so we can turn on 1 hour caching.
-                .and()
              .authorizeRequests().antMatchers("/**").permitAll()
                 .and()
              .csrf().disable();
@@ -43,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource(SecurityConfigProperties properties) {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(properties.getOrigin()));  
-        configuration.setAllowedMethods(Arrays.asList("GET", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setMaxAge(Duration.ofHours(1));
         configuration.setAllowCredentials(true);
