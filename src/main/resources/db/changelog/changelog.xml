@@ -28,6 +28,8 @@
     
     CREATE TABLE AsyncQuery (
        id varchar(36) NOT NULL,
+       asyncAfterSeconds int,
+       requestId varchar(36),
        principalName varchar(255),
        query varchar(1024) NOT NULL,
        queryType int NOT NULL,
@@ -42,6 +44,7 @@
        id varchar(36) NOT NULL,
        contentLength integer NOT NULL,
        responseBody varchar(10485760) NOT NULL,
+       resultType varchar(100),
        status integer NOT NULL,
        createdOn timestamp NOT NULL,
        updatedOn timestamp NOT NULL,
