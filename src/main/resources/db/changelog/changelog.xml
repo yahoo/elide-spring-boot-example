@@ -44,20 +44,6 @@
        httpStatus integer NOT NULL,
        PRIMARY KEY (id)
      );
-
-     CREATE TABLE AsyncQueryResult (
-       id varchar(36) NOT NULL,
-       contentLength integer NOT NULL,
-       responseBody varchar(10485760) NOT NULL,
-       resultType varchar(100),
-       status integer NOT NULL,
-       createdOn timestamp NOT NULL,
-       updatedOn timestamp NOT NULL,
-       query_id varchar(36) NOT NULL,
-       naturalkey varchar(255) NOT NULL,
-       PRIMARY KEY (id),
-       FOREIGN KEY (query_id) REFERENCES AsyncQuery(id)
-     );
         </sql>
     </changeSet>
     <changeSet author="admin" id="1539122270">
