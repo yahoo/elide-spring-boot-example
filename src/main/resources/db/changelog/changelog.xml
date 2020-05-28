@@ -40,7 +40,7 @@
        completedOn timestamp NOT NULL,
        contentLength integer NOT NULL,
        responseBody varchar(10485760) NOT NULL,
-       resultType varchar(100),
+       resultType varchar(15),
        httpStatus integer NOT NULL,
        PRIMARY KEY (id)
      );
