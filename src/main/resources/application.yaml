@@ -15,7 +15,13 @@ elide:
   swagger:
     path: /doc
     enabled: true
-    version: "1.0"
+  async:
+    enabled: true
+    threadPoolSize: 7
+    maxRunTime: 65
+    cleanupEnabled: true
+    queryCleanupDays: 7
+    defaultAsyncQueryDAO: true
 
 spring:
   application:
@@ -36,11 +42,15 @@ spring:
     driver-class-name: 'org.h2.Driver'
   liquibase:
     change-log: 'classpath:db/changelog/changelog.xml'
+    enabled: true
 server:
   port: 8080
 
 logging:
   path: /tmp
+
+security:
+  origin: "*"
 
 ---
 
@@ -65,4 +75,5 @@ spring:
 server:
   port: ${PORT}
 
-
+security:
+  origin: ${HOST}

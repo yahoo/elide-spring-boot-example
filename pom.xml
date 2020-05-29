@@ -22,7 +22,7 @@
         <jar.finalName>elide-spring-boot</jar.finalName>
         <postgres.version>42.2.7</postgres.version>
         <liquibase.version>3.8.1</liquibase.version>
-        <elide.version>4.5.8</elide.version>
+        <elide.version>5.0.0-pr10</elide.version>
         <spring.version>2.2.1.RELEASE</spring.version>
         <junit.jupiter.version>5.5.2</junit.jupiter.version>
     </properties>
@@ -34,6 +34,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>2.2.5.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -135,4 +141,12 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>bintray</id>
+            <name>Yahoo bintray repo</name>
+            <url>https://yahoo.bintray.com/maven</url>
+        </repository>
+    </repositories>
 </project>
