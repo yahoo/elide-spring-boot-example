@@ -251,12 +251,12 @@ public class ExampleTest extends IntegrationTest {
                     + "\t\t('1','USA');"})
     void jsonApiGetTestView() throws InterruptedException {
         when()
-                .get("/api/v1/PlayerStatsView")
+                .get("/api/v1/playerStatsView")
                 .then()
                 .body(equalTo(
                         data(
                                 resource(
-                                        type("PlayerStatsView"),
+                                        type("playerStatsView"),
                                         id("0"),
                                         attributes(
                                                 attr("countryCode", "USA"),
@@ -319,7 +319,7 @@ public class ExampleTest extends IntegrationTest {
                     + "\t\t('1','USA');"})
     void jsonApiPostGetTestView() throws InterruptedException {
         when()
-                .get("/api/v1/PlayerStatsView")
+                .get("/api/v1/playerStatsView")
                 .then()
                 .body("data.id", hasItems("1"))
                 .body("data.attributes.name", hasItems("SaniaMirza", "SerenaWilliams"))
