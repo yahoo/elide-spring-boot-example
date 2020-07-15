@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="admin" id="1539122071">
+        <sql>
+    CREATE TABLE PlayerCountry (
+       id varchar(255) NOT NULL,
+       isoCode varchar(255) DEFAULT NULL,
+       PRIMARY KEY (id)
+    );
+        </sql>
+    </changeSet>
+    <changeSet author="admin" id="1539122270">
+        <sql>
+    INSERT INTO PlayerCountry (id,isoCode) VALUES
+       ('1','USA'),
+       ('2','IND');
+        </sql>
+    </changeSet>
+</databaseChangeLog>
