@@ -40,7 +40,7 @@ public class ExampleTest extends IntegrationTest {
      */
     @Test
     @Sql(statements = {
-            "DELETE FROM ArtifactVersion; DELETE FROM ArtifactProduct; DELETE FROM ArtifactGroup;",
+            "DELETE FROM Downloads; DELETE FROM ArtifactVersion; DELETE FROM ArtifactProduct; DELETE FROM ArtifactGroup;",
             "INSERT INTO ArtifactGroup (name, commonName, description) VALUES\n" +
                     "\t\t('com.example.repository','Example Repository','The code for this project');"
     })
@@ -70,7 +70,7 @@ public class ExampleTest extends IntegrationTest {
 
     @Test
     @Sql(statements = {
-            "DELETE FROM ArtifactVersion; DELETE FROM ArtifactProduct; DELETE FROM ArtifactGroup;",
+            "DELETE FROM Downloads; DELETE FROM ArtifactVersion; DELETE FROM ArtifactProduct; DELETE FROM ArtifactGroup;",
             "INSERT INTO ArtifactGroup (name, commonName, description) VALUES\n" +
                     "\t\t('com.example.repository','Example Repository','The code for this project');"
     })
@@ -118,7 +118,7 @@ public class ExampleTest extends IntegrationTest {
 
     @Test
     @Sql(statements = {
-            "DELETE FROM ArtifactVersion; DELETE FROM ArtifactProduct; DELETE FROM ArtifactGroup;"
+            "DELETE FROM Downloads; DELETE FROM ArtifactVersion; DELETE FROM ArtifactProduct; DELETE FROM ArtifactGroup;"
     })
     void jsonApiPostTest() {
         given()
@@ -155,7 +155,7 @@ public class ExampleTest extends IntegrationTest {
 
     @Test
     @Sql(statements = {
-            "DELETE FROM ArtifactVersion; DELETE FROM ArtifactProduct; DELETE FROM ArtifactGroup;",
+            "DELETE FROM Downloads; DELETE FROM ArtifactVersion; DELETE FROM ArtifactProduct; DELETE FROM ArtifactGroup;",
             "INSERT INTO ArtifactGroup (name, commonName, description) VALUES\n" +
                     "\t\t('com.example.repository','Example Repository','The code for this project');"
     })
@@ -168,7 +168,7 @@ public class ExampleTest extends IntegrationTest {
 
     @Test
     @Sql(statements = {
-            "DELETE FROM ArtifactVersion; DELETE FROM ArtifactProduct; DELETE FROM ArtifactGroup;",
+            "DELETE FROM Downloads; DELETE FROM ArtifactVersion; DELETE FROM ArtifactProduct; DELETE FROM ArtifactGroup;",
             "INSERT INTO ArtifactGroup (name, commonName, description) VALUES\n" +
                     "\t\t('com.example.repository','Example Repository','The code for this project');",
             "INSERT INTO ArtifactProduct (name, commonName, description, group_name) VALUES\n" +
@@ -191,7 +191,7 @@ public class ExampleTest extends IntegrationTest {
      */
     @Test
     @Sql(statements = {
-            "DELETE FROM ArtifactVersion; DELETE FROM ArtifactProduct; DELETE FROM ArtifactGroup;",
+            "DELETE FROM Downloads; DELETE FROM ArtifactVersion; DELETE FROM ArtifactProduct; DELETE FROM ArtifactGroup;",
             "INSERT INTO ArtifactGroup (name, commonName, description) VALUES\n" +
                     "\t\t('com.example.repository','Example Repository','The code for this project');",
             "INSERT INTO ArtifactGroup (name, commonName, description) VALUES\n" +
@@ -260,6 +260,16 @@ public class ExampleTest extends IntegrationTest {
                 .when()
                 .get("/api/v1/asyncQuery")
                 .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void testDownloadAPI() throws Exception {
+        given()
+                .when()
+                .get("/api/v1/downloads?fields[downloads]=downloads,groupy,product")
+                .then()
+                .log().all()
                 .statusCode(200);
     }
 }

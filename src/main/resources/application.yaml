@@ -22,6 +22,12 @@ elide:
     cleanupEnabled: true
     queryCleanupDays: 7
     defaultAsyncQueryDAO: true
+  aggregation-store:
+    enabled: true
+    default-dialect: h2
+  dynamic-config:
+    path: src/main/resources/analytics
+    enabled: true
 
 spring:
   application:
