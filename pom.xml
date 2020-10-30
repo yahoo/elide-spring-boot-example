@@ -43,14 +43,14 @@
         </dependency>
 
         <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-core</artifactId>
-            <version>1.5.1</version>
+            <groupId>com.yahoo.elide</groupId>
+            <artifactId>elide-spring-boot-starter</artifactId>
+            <version>${elide.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.yahoo.elide</groupId>
-            <artifactId>elide-spring-boot-starter</artifactId>
+            <artifactId>elide-datastore-aggregation</artifactId>
             <version>${elide.version}</version>
         </dependency>
 

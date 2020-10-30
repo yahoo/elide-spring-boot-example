@@ -32,6 +32,9 @@
     <logger name="com.yahoo.elide.graphql.QueryRunner" level="DEBUG" />
     <logger name="com.yahoo.elide.Elide" level="DEBUG" />
 
+    <!-- Log Analytic SQL Queries -->
+    <logger name="com.yahoo.elide.datastores.aggregation.core.Slf4jQueryLogger" level="DEBUG" />
+
     <root level="info">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="LOGFILE" />
