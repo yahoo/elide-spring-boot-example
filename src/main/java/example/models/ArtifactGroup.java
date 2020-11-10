@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Include(rootLevel = true, type = "group")
-@Entity
 @Table(name = "ArtifactGroup")
+@Entity
 public class ArtifactGroup {
     @Id
     private String name = "";
