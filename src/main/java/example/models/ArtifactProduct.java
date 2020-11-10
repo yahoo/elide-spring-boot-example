@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Include(type = "product")
-@Entity
 @Table(name = "ArtifactProduct")
+@Entity
 public class ArtifactProduct {
     @Id
     private String name = "";

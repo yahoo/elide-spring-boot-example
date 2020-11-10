@@ -10,9 +10,11 @@ import com.yahoo.elide.annotation.Include;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Include(type = "version")
+@Table(name = "ArtifactVersion")
 @Entity
 public class ArtifactVersion {
     @Id
