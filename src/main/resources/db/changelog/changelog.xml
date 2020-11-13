@@ -25,31 +25,32 @@
        PRIMARY KEY (name),
        FOREIGN KEY (artifact_name) REFERENCES ArtifactProduct(name)
     );
-    
-    CREATE TABLE AsyncQuery (
-       id varchar(36) NOT NULL,
-       principalName varchar(255),
-       query varchar(1024) NOT NULL,
-       queryType int NOT NULL,
-       status int NOT NULL,
-       createdOn timestamp NOT NULL,
-       updatedOn timestamp NOT NULL,
-       naturalkey varchar(255) NOT NULL,
-       PRIMARY KEY (id)
-     );
 
-     CREATE TABLE AsyncQueryResult (
-       id varchar(36) NOT NULL,
-       contentLength integer NOT NULL,
-       responseBody varchar(10485760) NOT NULL,
-       status integer NOT NULL,
-       createdOn timestamp NOT NULL,
-       updatedOn timestamp NOT NULL,
-       query_id varchar(36) NOT NULL,
-       naturalkey varchar(255) NOT NULL,
-       PRIMARY KEY (id),
-       FOREIGN KEY (query_id) REFERENCES AsyncQuery(id)
-     );
+    CREATE TABLE AsyncQuery (
+       id varchar(36) not null,
+       createdOn timestamp,
+       principalName varchar(255),
+       query varchar(255),
+       queryType integer,
+       requestId varchar(36),
+       status varchar(255),
+       updatedOn timestamp,
+       contentLength integer,
+       responseBody varchar(255),
+       completedOn timestamp,
+       httpStatus integer,
+       recordCount integer,
+       primary key (id)
+    );
+
+    CREATE TABLE Downloads (
+       group_id varchar(255) NOT NULL,
+       product_id varchar(255) NOT NULL,
+       date timestamp NOT NULL,
+       downloads integer NOT NULL,
+       FOREIGN KEY (group_id) REFERENCES ArtifactGroup(name),
+       FOREIGN KEY (product_id) REFERENCES ArtifactProduct(name)
+    );
         </sql>
     </changeSet>
     <changeSet author="admin" id="1539122270">
@@ -62,6 +63,11 @@
        ('elide-core','Core','The guts of Elide','com.yahoo.elide'),
        ('elide-datastore-hibernate5','Hibernate5 Datastore','A datastore that uses Hibernate 5 to communicate with the database','com.yahoo.elide'),
        ('elide-standalone','Standalone','A pre-configured, standalone Elide webservice','com.yahoo.elide');
+
+    INSERT INTO Downloads (group_id, product_id, date, downloads) VALUES
+            ('com.example.repository','elide-core','2020-01-01', 10),
+            ('com.example.repository','elide-core','2020-01-02', 11),
+            ('com.example.repository','elide-core','2020-01-03', 14);
         </sql>
     </changeSet>
 </databaseChangeLog>

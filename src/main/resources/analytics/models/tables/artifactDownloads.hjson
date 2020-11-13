@@ -1,0 +1,52 @@
+{
+    tables: [
+    {
+        name: Downloads
+        table: downloads
+        description:
+        '''
+        Analytics for artifact downloads.
+        '''
+        joins: [
+            {
+                name: artifactGroup
+                to: group
+                type: toOne
+                definition: '{{group_id}} = {{artifactGroup.name}}'
+            },
+            {
+                name: artifactProduct
+                to: product
+                type: toOne
+                definition: '{{product_id}} = {{artifactProduct.name}}'
+            }
+        ]
+        dimensions: [
+            {
+                name: group
+                type: TEXT
+                definition: '{{artifactGroup.name}}'
+            }
+            {
+                name: product
+                type: TEXT
+                definition: '{{artifactProduct.name}}'
+            }
+            {
+                name: date
+                type: TIME
+                definition: '{{date}}'
+                grain: {
+                    type: DAY
+                }
+            }
+        ]
+        measures: [
+            {
+                name: downloads
+                type: INTEGER
+                definition: 'SUM({{downloads}})'
+            }
+        ]
+    }]
+}
