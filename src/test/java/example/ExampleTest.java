@@ -267,7 +267,7 @@ public class ExampleTest extends IntegrationTest {
     public void testDownloadAPI() throws Exception {
         given()
                 .when()
-                .get("/api/v1/downloads?fields[downloads]=downloads,group,product")
+                .get("/api/v1/Downloads?fields[Downloads]=downloads,group,product")
                 .then()
                 .statusCode(200);
     }
