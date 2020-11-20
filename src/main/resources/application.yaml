@@ -59,6 +59,9 @@ security:
   origin: "*"
 
 ---
+elide:
+  aggregation-store:
+    default-dialect: Postgres
 
 spring:
   profiles: production
