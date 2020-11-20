@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Include(type = "version")
-@Table(name = "ArtifactVersion")
+@Table(name = "artifactversion")
 @Entity
 public class ArtifactVersion {
     @Id
