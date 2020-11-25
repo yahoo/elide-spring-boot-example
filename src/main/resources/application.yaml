@@ -17,7 +17,7 @@ elide:
     enabled: true
   async:
     enabled: true
-    threadPoolSize: 7
+    threadPoolSize: 2
     maxRunTime: 65
     cleanupEnabled: true
     queryCleanupDays: 7
