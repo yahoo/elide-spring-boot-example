@@ -54,6 +54,8 @@ spring:
     enabled: true
 server:
   port: 8080
+  tomcat:
+    max-threads: 2
 
 logging:
   path: /tmp
