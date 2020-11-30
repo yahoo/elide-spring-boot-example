@@ -25,6 +25,7 @@ elide:
   aggregation-store:
     enabled: true
     default-dialect: h2
+    enableMetaDataStore: false
   dynamic-config:
     path: src/main/resources/analytics
     enabled: true
