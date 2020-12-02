@@ -4,12 +4,6 @@
   "repository": "https://github.com/yahoo/elide-spring-boot-example",
   "logo": "https://elide.io//assets/images/elide-white-logo.png",
   "keywords": ["java", "elide", "graphql", "json-api"],
-  "env": {
-    "MALLOC_ARENA_MAX": {
-      "description": "A memory tuning param",
-      "value": "1"
-    }
-  },
   "addons": [
     {
       "plan": "heroku-postgresql"
