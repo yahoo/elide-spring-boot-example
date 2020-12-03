@@ -139,41 +139,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.liquibase</groupId>
-                                    <artifactId>liquibase-core</artifactId>
-                                    <version>3.4.1</version>
-                                    <destFileName>liquibase.jar</destFileName>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.yaml</groupId>
-                                    <artifactId>snakeyaml</artifactId>
-                                    <version>1.13</version>
-                                    <outputDirectory>${project.build.directory}/dependency/lib</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.postgresql</groupId>
-                                    <artifactId>postgresql</artifactId>
-                                    <version>9.4-1204-jdbc41</version>
-                                    <destFileName>postgres.jar</destFileName>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
