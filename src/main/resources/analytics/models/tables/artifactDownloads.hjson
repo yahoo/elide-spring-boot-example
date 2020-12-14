@@ -11,13 +11,13 @@
             {
                 name: artifactGroup
                 to: group
-                type: toOne
+                kind: toOne
                 definition: '{{group_id}} = {{artifactGroup.name}}'
             },
             {
                 name: artifactProduct
                 to: product
-                type: toOne
+                kind: toOne
                 definition: '{{product_id}} = {{artifactProduct.name}}'
             }
         ]

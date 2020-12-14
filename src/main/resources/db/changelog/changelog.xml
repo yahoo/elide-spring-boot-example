@@ -36,7 +36,7 @@
        status varchar(255),
        updatedOn timestamp,
        contentLength integer,
-       responseBody varchar(255),
+       responseBody text,
        completedOn timestamp,
        httpStatus integer,
        recordCount integer,
