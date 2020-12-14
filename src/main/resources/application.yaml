@@ -81,7 +81,7 @@ spring:
     password: ${JDBC_DATABASE_PASSWORD}
     driver-class-name: 'org.postgresql.Driver'
   liquibase:
-    change-log: 'classpath:db/changelog/changelog.xml'
+    enabled: false
 server:
   port: ${PORT}
 
