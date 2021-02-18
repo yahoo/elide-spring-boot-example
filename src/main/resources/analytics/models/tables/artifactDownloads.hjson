@@ -36,9 +36,11 @@
                 name: date
                 type: TIME
                 definition: '{{date}}'
-                grain: {
-                    type: DAY
-                }
+                grains: [
+                    {
+                        type: DAY
+                    }
+                ]
             }
         ]
         measures: [

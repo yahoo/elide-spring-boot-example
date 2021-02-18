@@ -43,6 +43,26 @@
        primary key (id)
     );
 
+    CREATE TABLE TableExport (
+       id varchar(36) not null,
+       createdOn timestamp,
+       principalName varchar(255),
+       query varchar(255),
+       queryType integer,
+       requestId varchar(36),
+       resultType varchar(255),
+       status varchar(255),
+       updatedOn timestamp,
+       contentLength integer,
+       responseBody text,
+       completedOn timestamp,
+       httpStatus integer,
+       recordCount integer,
+       message text,
+       url varchar(255),
+       primary key (id)
+    );
+
     CREATE TABLE Downloads (
        group_id varchar(255) NOT NULL,
        product_id varchar(255) NOT NULL,

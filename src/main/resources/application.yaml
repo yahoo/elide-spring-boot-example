@@ -22,6 +22,8 @@ elide:
     cleanupEnabled: true
     queryCleanupDays: 7
     defaultAsyncQueryDAO: true
+    export:
+      enabled: true
   aggregation-store:
     enabled: true
     default-dialect: h2
