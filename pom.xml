@@ -15,15 +15,15 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.4.RELEASE</version>
+        <version>2.4.2</version>
     </parent>
 
     <properties>
         <jar.finalName>elide-spring-boot</jar.finalName>
         <postgres.version>42.2.7</postgres.version>
         <liquibase.version>3.8.1</liquibase.version>
-        <elide.version>5.0.0-pr31-SNAPSHOT</elide.version>
-        <spring.version>2.3.4.RELEASE</spring.version>
+        <elide.version>5.0.0-pr31</elide.version>
+        <spring.version>2.4.2</spring.version>
         <junit.jupiter.version>5.5.2</junit.jupiter.version>
     </properties>
 
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-            <version>2.2.5.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-sleuth</artifactId>
-            <version>2.2.0.RELEASE</version>
+            <version>3.0.1</version>
         </dependency>
 
         <dependency>
