@@ -2,41 +2,92 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <changeSet author="admin" id="1539122071">
         <sql>
-	CREATE TABLE ArtifactGroup (
-	  name varchar(255) NOT NULL,
-	  commonName varchar(255) DEFAULT NULL,
-	  description varchar(255) DEFAULT NULL,
-	  PRIMARY KEY (name)
-	);
+    CREATE TABLE ArtifactGroup (
+       name varchar(255) NOT NULL,
+       commonName varchar(255) DEFAULT NULL,
+       description varchar(255) DEFAULT NULL,
+       PRIMARY KEY (name)
+    );
 
-	CREATE TABLE ArtifactProduct (
-	  name varchar(255) NOT NULL,
-	  commonName varchar(255) DEFAULT NULL,
-	  description varchar(255) DEFAULT NULL,
-	  group_name varchar(255) DEFAULT NULL,
-	  PRIMARY KEY (name),
-	  FOREIGN KEY (group_name) REFERENCES ArtifactGroup(name)
-	);
+    CREATE TABLE ArtifactProduct (
+       name varchar(255) NOT NULL,
+       commonName varchar(255) DEFAULT NULL,
+       description varchar(255) DEFAULT NULL,
+       group_name varchar(255) DEFAULT NULL,
+       PRIMARY KEY (name),
+       FOREIGN KEY (group_name) REFERENCES ArtifactGroup(name)
+    );
 
-	CREATE TABLE ArtifactVersion (
-	  name varchar(255) NOT NULL,
-	  createdAt timestamp DEFAULT NULL,
-	  artifact_name varchar(255) DEFAULT NULL,
-	  PRIMARY KEY (name),
-	  FOREIGN KEY (artifact_name) REFERENCES ArtifactProduct(name)
-	);
+    CREATE TABLE ArtifactVersion (
+       name varchar(255) NOT NULL,
+       createdAt timestamp DEFAULT NULL,
+       artifact_name varchar(255) DEFAULT NULL,
+       PRIMARY KEY (name),
+       FOREIGN KEY (artifact_name) REFERENCES ArtifactProduct(name)
+    );
+
+    CREATE TABLE AsyncQuery (
+       id varchar(36) not null,
+       createdOn timestamp,
+       principalName varchar(255),
+       query varchar(255),
+       queryType integer,
+       requestId varchar(36),
+       status varchar(255),
+       updatedOn timestamp,
+       contentLength integer,
+       responseBody text,
+       completedOn timestamp,
+       httpStatus integer,
+       recordCount integer,
+       primary key (id)
+    );
+
+    CREATE TABLE TableExport (
+       id varchar(36) not null,
+       createdOn timestamp,
+       principalName varchar(255),
+       query varchar(255),
+       queryType integer,
+       requestId varchar(36),
+       resultType varchar(255),
+       status varchar(255),
+       updatedOn timestamp,
+       contentLength integer,
+       responseBody text,
+       completedOn timestamp,
+       httpStatus integer,
+       recordCount integer,
+       message text,
+       url varchar(255),
+       primary key (id)
+    );
+
+    CREATE TABLE Downloads (
+       group_id varchar(255) NOT NULL,
+       product_id varchar(255) NOT NULL,
+       date timestamp NOT NULL,
+       downloads integer NOT NULL,
+       FOREIGN KEY (group_id) REFERENCES ArtifactGroup(name),
+       FOREIGN KEY (product_id) REFERENCES ArtifactProduct(name)
+    );
         </sql>
     </changeSet>
     <changeSet author="admin" id="1539122270">
         <sql>
-	INSERT INTO ArtifactGroup (name, commonName, description) VALUES
-		('com.example.repository','Example Repository','The code for this project'),
-		('com.yahoo.elide','Elide','The magical library powering this project');
+    INSERT INTO ArtifactGroup (name, commonName, description) VALUES
+       ('com.example.repository','Example Repository','The code for this project'),
+       ('com.yahoo.elide','Elide','The magical library powering this project');
 
-	INSERT INTO ArtifactProduct (name, commonName, description, group_name) VALUES
-		('elide-core','Core','The guts of Elide','com.yahoo.elide'),
-		('elide-datastore-hibernate5','Hibernate5 Datastore','A datastore that uses Hibernate 5 to communicate with the database','com.yahoo.elide'),
-		('elide-standalone','Standalone','A pre-configured, standalone Elide webservice','com.yahoo.elide');
+    INSERT INTO ArtifactProduct (name, commonName, description, group_name) VALUES
+       ('elide-core','Core','The guts of Elide','com.yahoo.elide'),
+       ('elide-datastore-hibernate5','Hibernate5 Datastore','A datastore that uses Hibernate 5 to communicate with the database','com.yahoo.elide'),
+       ('elide-standalone','Standalone','A pre-configured, standalone Elide webservice','com.yahoo.elide');
+
+    INSERT INTO Downloads (group_id, product_id, date, downloads) VALUES
+            ('com.example.repository','elide-core','2020-01-01', 10),
+            ('com.example.repository','elide-core','2020-01-02', 11),
+            ('com.example.repository','elide-core','2020-01-03', 14);
         </sql>
     </changeSet>
 </databaseChangeLog>

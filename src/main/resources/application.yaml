@@ -15,7 +15,22 @@ elide:
   swagger:
     path: /doc
     enabled: true
-    version: "1.0"
+  async:
+    enabled: true
+    threadPoolSize: 2
+    maxRunTime: 65
+    cleanupEnabled: true
+    queryCleanupDays: 7
+    defaultAsyncQueryDAO: true
+    export:
+      enabled: true
+  aggregation-store:
+    enabled: true
+    default-dialect: h2
+    enableMetaDataStore: false
+  dynamic-config:
+    path: src/main/resources/analytics
+    enabled: true
 
 spring:
   application:
@@ -39,13 +54,22 @@ spring:
     driver-class-name: 'org.h2.Driver'
   liquibase:
     change-log: 'classpath:db/changelog/changelog.xml'
+    enabled: true
 server:
   port: 8080
+  tomcat:
+    max-threads: 2
 
 logging:
   path: /tmp
 
+security:
+  origin: "*"
+
 ---
+elide:
+  aggregation-store:
+    default-dialect: Postgres
 
 spring:
   profiles: production
@@ -64,8 +88,9 @@ spring:
     password: ${JDBC_DATABASE_PASSWORD}
     driver-class-name: 'org.postgresql.Driver'
   liquibase:
-    change-log: 'classpath:db/changelog/changelog.xml'
+    enabled: false
 server:
   port: ${PORT}
 
-
+security:
+  origin: ${HOST}
