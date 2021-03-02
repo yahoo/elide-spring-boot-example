@@ -253,16 +253,6 @@ public class ExampleTest extends IntegrationTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK);
     }
-
-    @Test
-    public void testAsyncApiEndPoint() throws Exception {
-        given()
-                .when()
-                .get("/api/v1/asyncQuery")
-                .then()
-                .statusCode(200);
-    }
-
     @Test
     public void testDownloadAPI() throws Exception {
         given()

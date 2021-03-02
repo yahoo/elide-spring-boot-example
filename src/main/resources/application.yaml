@@ -16,14 +16,14 @@ elide:
     path: /doc
     enabled: true
   async:
-    enabled: true
+    enabled: false
     threadPoolSize: 2
     maxRunTime: 65
     cleanupEnabled: true
     queryCleanupDays: 7
     defaultAsyncQueryDAO: true
     export:
-      enabled: true
+      enabled: false
   aggregation-store:
     enabled: true
     default-dialect: h2
