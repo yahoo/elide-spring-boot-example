@@ -14,10 +14,6 @@ To build and run:
 2. java -jar target/elide-spring-boot-1.0.jar
 3. Browse http://localhost:8080/
 
-To run from Heroku:
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/yahoo/elide-spring-boot-example)
-
 ## Docker and Containerize
 
 To containerize and run elide project locally
