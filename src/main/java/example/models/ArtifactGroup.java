@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-@Include(rootLevel = true, type = "group")
+@Include(name = "group")
 @Table(name = "artifactgroup")
 @Entity
 public class ArtifactGroup {
