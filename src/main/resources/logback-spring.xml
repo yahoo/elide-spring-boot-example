@@ -26,7 +26,10 @@
     <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" />
 
     <!-- Log JPA Datastore HQL Statements -->
-    <logger name="com.yahoo.elide.datastores.jpa.porting.EntityManagerWrapper" level="DEBUG" />
+    <logger name="com.yahoo.elide.core.hibernate.hql.DefaultQueryLogger" level="DEBUG" />
+
+    <!-- Log SQL/JPQL Timings -->
+    <logger name="com.yahoo.elide.core.utils.TimedFunction" level="DEBUG" />
 
     <!-- Log HTTP Error Explanations -->
     <logger name="com.yahoo.elide.graphql.QueryRunner" level="DEBUG" />
