@@ -69,7 +69,7 @@ To containerize and run elide project locally
     
 ## Usage
 
-See [Elide's Getting Started documentation](https://elide.io/pages/guide/01-start.html).
+See [Elide's Getting Started documentation](https://elide.io/pages/guide/v5/01-start.html).
 
 ## Contribute
 Please refer to [the contributing.md file](CONTRIBUTING.md) for information about how to get involved. We welcome issues, questions, and pull requests.
