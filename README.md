@@ -2,6 +2,8 @@
 
 An archetype Elide project using Spring Boot.
 
+[![Build Status](https://cd.screwdriver.cd/pipelines/7924/badge)](https://cd.screwdriver.cd/pipelines/7924)
+
 ## Background
 
 This project is the sample code for [Elide's Getting Started documentation](https://elide.io/pages/guide/01-start.html).
