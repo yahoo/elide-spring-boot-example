@@ -1,6 +1,6 @@
 # Elide Spring Boot Example
 
-An archetype Elide project using Spring Boot.
+An archetype Elide project using Spring Boot
 
 [![Build Status](https://cd.screwdriver.cd/pipelines/7924/badge)](https://cd.screwdriver.cd/pipelines/7924)
 
