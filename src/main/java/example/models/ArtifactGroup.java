@@ -9,6 +9,8 @@ import com.yahoo.elide.annotation.Include;
 import com.yahoo.elide.graphql.subscriptions.annotations.Subscription;
 import com.yahoo.elide.graphql.subscriptions.annotations.SubscriptionField;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -20,6 +22,7 @@ import java.util.List;
 @Table(name = "artifactgroup")
 @Entity
 @Subscription
+@Data
 public class ArtifactGroup {
     @Id
     private String name = "";
