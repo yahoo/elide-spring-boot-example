@@ -15,6 +15,8 @@ elide:
   swagger:
     path: /doc
     enabled: true
+  subscription:
+    enabled: true
   async:
     enabled: false
     threadPoolSize: 2
@@ -54,6 +56,10 @@ spring:
   liquibase:
     change-log: 'classpath:db/changelog/changelog.xml'
     enabled: true
+  activemq:
+    broker-url: 'vm://embedded?broker.persistent=false,useShutdownHook=false'
+    in-memory: true
+
 server:
   port: 8080
 

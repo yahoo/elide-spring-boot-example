@@ -6,6 +6,8 @@
 package example.models;
 
 import com.yahoo.elide.annotation.Include;
+import com.yahoo.elide.graphql.subscriptions.annotations.Subscription;
+import com.yahoo.elide.graphql.subscriptions.annotations.SubscriptionField;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,14 +19,18 @@ import java.util.List;
 @Include(name = "group")
 @Table(name = "artifactgroup")
 @Entity
+@Subscription
 public class ArtifactGroup {
     @Id
     private String name = "";
 
+    @SubscriptionField
     private String commonName = "";
 
+    @SubscriptionField
     private String description = "";
 
+    @SubscriptionField
     @OneToMany(mappedBy = "group")
     private List<ArtifactProduct> products = new ArrayList<>();
 }
