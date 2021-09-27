@@ -17,6 +17,7 @@ elide:
     enabled: true
   subscription:
     enabled: true
+    path: /subscription
   async:
     enabled: false
     threadPoolSize: 2

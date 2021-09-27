@@ -58,7 +58,7 @@
 
 <script>
       const wsClient = graphqlWs.createClient({
-        url: "ws://localhost:8080/subscription",
+        url: "ws://" + window.location.host + "/subscription",
         lazy: false, // connect as soon as the page opens
       });
 
