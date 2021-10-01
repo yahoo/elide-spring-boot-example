@@ -57,8 +57,9 @@
 ></script>
 
 <script>
+      let protocol = window.location.protocol === 'https:' ? 'wss' : 'ws;
       const wsClient = graphqlWs.createClient({
-        url: "ws://" + window.location.host + "/subscription",
+        url: protocol + "://" + window.location.host + "/subscription",
         lazy: false, // connect as soon as the page opens
       });
 
