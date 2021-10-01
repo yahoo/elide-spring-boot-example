@@ -5,23 +5,25 @@ annotations:
    screwdriver.cd/restrictPR: fork
 
 shared:
-   image: maven:3.6.3-jdk-8
    environment:
        #Fetches history so Sonar can assign blame.
        GIT_SHALLOW_CLONE: false
 
 jobs:
   master-commit:
+    image: maven:3.8.2-openjdk-11
     requires: [~pr, ~commit]
     steps:
       - build: mvn -B clean verify
 
   elide-5-build:
+    image: maven:3.6.3-jdk-8
     requires: [~pr:elide-5.x, ~commit:elide-5.x]
     steps:
       - build: mvn -B clean verify
 
   elide-4-build:
+    image: maven:3.6.3-jdk-8
     requires: [~pr:elide-4.x, ~commit:elide-4.x]
     steps:
       - build: mvn -B clean verify
