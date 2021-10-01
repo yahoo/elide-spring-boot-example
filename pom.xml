@@ -22,7 +22,7 @@
         <jar.finalName>elide-spring-boot</jar.finalName>
         <postgres.version>42.2.7</postgres.version>
         <liquibase.version>3.8.1</liquibase.version>
-        <elide.version>5.0.9</elide.version>
+        <elide.version>6.0.0-pr4</elide.version>
         <spring.version>2.4.2</spring.version>
         <junit.jupiter.version>5.5.2</junit.jupiter.version>
     </properties>
@@ -59,6 +59,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-artemis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>artemis-jms-server</artifactId>
+            <version>2.18.0</version>
         </dependency>
 
         <dependency>
