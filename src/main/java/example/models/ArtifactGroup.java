@@ -5,18 +5,21 @@
  */
 package example.models;
 
+import com.yahoo.elide.annotation.ComputedAttribute;
 import com.yahoo.elide.annotation.Include;
 import com.yahoo.elide.graphql.subscriptions.annotations.Subscription;
 import com.yahoo.elide.graphql.subscriptions.annotations.SubscriptionField;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Transient;
 
 @Include(name = "group")
 @Table(name = "artifactgroup")
@@ -36,4 +39,10 @@ public class ArtifactGroup {
     @SubscriptionField
     @OneToMany(mappedBy = "group")
     private List<ArtifactProduct> products = new ArrayList<>();
+
+    @Transient
+    @ComputedAttribute
+    public String getCombinedName() {
+        return name + " " + commonName;
+    }
 }
