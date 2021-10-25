@@ -49,6 +49,11 @@
                 type: INTEGER
                 definition: 'SUM({{$downloads}})'
             }
+            {
+                name: concatTest
+                type: INTEGER
+                definition: 'concat({{artifactGroup.name}}," ", {{artifactProduct.name}})'
+            }
         ]
     }]
 }
