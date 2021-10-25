@@ -54,6 +54,11 @@
                 type: INTEGER
                 definition: 'concat({{artifactGroup.name}}," ", {{artifactProduct.name}})'
             }
+            {
+                name: concatWsTest
+                type: INTEGER
+                definition: 'concat_ws("separator",{{artifactGroup.name}}, {{artifactProduct.name}})'
+            }
         ]
     }]
 }
