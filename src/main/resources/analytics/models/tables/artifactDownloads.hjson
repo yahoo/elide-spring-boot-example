@@ -42,22 +42,22 @@
                     }
                 ]
             }
+            {
+                name: concatTest
+                type: TEXT
+                definition: concat({{artifactGroup.name}}, ' ', {{artifactProduct.name}})
+            }
+            {
+                name: concatWsTest
+                type: TEXT
+                definition: concat_ws(' ', {{artifactGroup.name}}, {{artifactProduct.name}})
+            }
         ]
         measures: [
             {
                 name: downloads
                 type: INTEGER
                 definition: 'SUM({{$downloads}})'
-            }
-            {
-                name: concatTest
-                type: INTEGER
-                definition: 'concat({{artifactGroup.name}}," ", {{artifactProduct.name}})'
-            }
-            {
-                name: concatWsTest
-                type: INTEGER
-                definition: 'concat_ws("separator",{{artifactGroup.name}}, {{artifactProduct.name}})'
             }
         ]
     }]
