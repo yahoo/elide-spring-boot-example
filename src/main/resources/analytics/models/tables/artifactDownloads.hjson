@@ -2,7 +2,7 @@
     tables: [
     {
         name: downloads
-        table: downloads
+        sql: select * from downloads where group_id != ''
         description:
         '''
         Analytics for artifact downloads.
