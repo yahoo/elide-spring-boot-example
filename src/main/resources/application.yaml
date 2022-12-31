@@ -38,6 +38,10 @@ elide:
 spring:
   application:
     name: Elide
+  profiles:
+    active: "local"
+    default: "local"
+
   jpa:
     properties:
       hibernate:
@@ -76,7 +80,12 @@ elide:
     default-dialect: Postgres
 
 spring:
-  profiles: production
+  jakarta-servlet:
+    version: "5.0.0"
+
+  profiles:
+    active: "production"
+
   jpa:
     hibernate:
       show_sql: true

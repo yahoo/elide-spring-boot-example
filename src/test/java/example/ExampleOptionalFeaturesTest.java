@@ -6,7 +6,7 @@
 
 package example;
 
-import static com.jayway.restassured.RestAssured.given;
+import static io.restassured.RestAssured.given;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.TestPropertySource;
 
