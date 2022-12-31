@@ -1,3 +1,4 @@
+
 cache:
    pipeline: ["~/.m2"]
 
@@ -13,6 +14,18 @@ jobs:
   master-commit:
     image: maven:3.8.2-openjdk-11
     requires: [~pr, ~commit]
+    steps:
+      - build: mvn -B clean verify
+
+  elide-7-build:
+    image: maven:3.8.6-eclipse-temurin-17
+    requires: [ ~pr:elide-7.x, ~commit:elide-7.x ]
+    steps:
+      - build: mvn -B clean verify
+
+  elide-6-build:
+    image: maven:3.8.2-openjdk-11
+    requires: [ ~pr:elide-6.x, ~commit:elide-6.x ]
     steps:
       - build: mvn -B clean verify
 
