@@ -17,7 +17,7 @@ jobs:
       - build: mvn -B clean verify
 
   elide-7-build:
-    image: maven:3.8.6-eclipse-temurin-11
+    image: maven:3.8.6-eclipse-temurin-17
     requires: [ ~pr:elide-7.x, ~commit:elide-7.x ]
     steps:
       - build: mvn -B clean verify
