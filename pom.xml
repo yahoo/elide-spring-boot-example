@@ -15,17 +15,22 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.1</version>
+        <version>3.0.5</version>
     </parent>
 
     <properties>
         <jar.finalName>elide-spring-boot</jar.finalName>
-        <postgres.version>42.3.7</postgres.version>
-        <liquibase.version>4.18.0</liquibase.version>
-        <elide.version>7.0.0-pr2</elide.version>
-        <spring.version>3.0.4</spring.version>
-        <junit.jupiter.version>5.9.1</junit.jupiter.version>
         <java.version>17</java.version>
+
+        <elide.version>7.0.0-pr3</elide.version>
+
+        <liquibase.version>4.18.0</liquibase.version>
+        <artemis.version>2.28.0</artemis.version>
+
+        <rest-assured.version>5.3.0</rest-assured.version>
+
+        <!-- see https://github.com/graalvm/native-build-tools/issues/358 -->
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
     </properties>
 
     <dependencies>
@@ -34,19 +39,16 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
-            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
@@ -71,7 +73,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
         </dependency>
-            <dependency>
+        <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>5.0.0</version>
@@ -83,33 +85,33 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>artemis-jakarta-server</artifactId>
-            <version>2.27.1</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
-            <version>3.1.5</version>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-brave</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>artemis-jakarta-server</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>${postgres.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>2.1.214</version>
         </dependency>
 
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>${liquibase.version}</version>
         </dependency>
 
         <!-- Request/Response logging -->
@@ -130,14 +132,12 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>5.3.0</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -151,21 +151,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <version>${spring.version}</version>
             <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -175,12 +172,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M7</version>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.version}</version>
                 <configuration>
                     <mainClass>example.App</mainClass>
                     <layout>JAR</layout>
@@ -192,6 +187,27 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <configuration>
+                    <buildArgs combine.children="append">
+                        <buildArg>-H:+PrintClassInitialization</buildArg>
+                        <buildArg>-H:+ReportExceptionStackTraces</buildArg>
+                        
+                        <!-- Netty -->
+                        <buildArg>--add-opens=java.base/java.nio=ALL-UNNAMED</buildArg>
+                        <buildArg>--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED</buildArg>
+                        <buildArg>--initialize-at-run-time=io.netty</buildArg>
+
+                        <!-- see https://github.com/oracle/graal/issues/4304 -->
+                        <buildArg>--initialize-at-run-time=sun.net.dns.ResolverConfigurationImpl</buildArg>
+
+                        <!-- see org.apache.activemq.artemis.logs.AuditLogger-->
+                        <buildArg>-H:IncludeResourceBundles=sun.security.util.Resources</buildArg>
+                    </buildArgs>
+                </configuration>
             </plugin>
         </plugins>
     </build>
