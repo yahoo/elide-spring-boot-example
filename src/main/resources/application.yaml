@@ -4,48 +4,47 @@
 # See LICENSE file in project root for terms.
 ################################################
 
+app:
+  security:
+    origin: "*"
 elide:
-  modelPackage: 'example.models'
   json-api:
-    path: /api/v1
     enabled: true
+    path: /api
   graphql:
-    path: /graphql/api/v1
     enabled: true
-  swagger:
+    path: /graphql/api
+    subscription:
+      enabled: true
+      path: /subscription
+  api-docs:
+    enabled: true
     path: /doc
-    enabled: true
-  subscription:
-    enabled: true
-    path: /subscription
   async:
     enabled: false
-    threadPoolSize: 2
-    maxRunTime: 65
-    cleanupEnabled: true
-    queryCleanupDays: 7
-    defaultAsyncQueryDAO: true
+    thread-pool-size: 2
+    cleanup:
+      enabled: true
+      query-max-run-time: 65s
+      query-retention-duration: 7d
     export:
       enabled: false
   aggregation-store:
     enabled: true
     default-dialect: h2
-    enableMetaDataStore: false
-  dynamic-config:
-    path: analytics
-    enabled: true
-
+    metadata-store:
+      enabled: false
+    dynamic-config:
+      enabled: true
+      path: analytics
 spring:
   cloud:
     refresh:
       enabled: false
-
   application:
     name: Elide
-
   profiles:
-    active: "local"
-
+    active: local
   jpa:
     show-sql: true
     properties:
@@ -62,18 +61,16 @@ spring:
     password: ''
     driver-class-name: 'org.h2.Driver'
   liquibase:
-    change-log: 'classpath:db/changelog/changelog.xml'
     enabled: true
+    change-log: 'classpath:db/changelog/changelog.xml'
   activemq:
     broker-url: 'vm://embedded?broker.persistent=false,useShutdownHook=false'
     in-memory: true
-
 server:
   port: 8080
-
 logging:
   file:
     path: /tmp
-
-security:
-  origin: "*"
+springdoc:
+  swagger-ui:
+    tags-sorter: alpha

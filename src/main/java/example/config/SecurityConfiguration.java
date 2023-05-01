@@ -4,11 +4,14 @@
  * See LICENSE file in project root for terms.
  */
 
-package example;
+package example.config;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 import java.time.Duration;
 import java.util.Arrays;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,17 +26,15 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
  */
 @Configuration
 @EnableWebSecurity
+@EnableConfigurationProperties(SecurityConfigProperties.class)
 public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors()
-                .and()
-            .headers().frameOptions().sameOrigin()
-                .and()
-            .authorizeHttpRequests().anyRequest().permitAll()
-                .and()
-            .csrf().disable();
+        http.cors(withDefaults())
+            .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
+            .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests.anyRequest().permitAll())
+            .csrf(csrf -> csrf.disable());
         return http.build();
     }
 

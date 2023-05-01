@@ -3,6 +3,7 @@
     {
         name: downloads
         table: downloads
+        friendlyName: Downloads
         description:
         '''
         Analytics for artifact downloads.

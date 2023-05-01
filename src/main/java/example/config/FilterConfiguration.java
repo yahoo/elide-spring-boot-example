@@ -4,7 +4,7 @@
  * See LICENSE file in project root for terms.
  */
 
-package example;
+package example.config;
 
 import ch.qos.logback.access.servlet.TeeFilter;
 

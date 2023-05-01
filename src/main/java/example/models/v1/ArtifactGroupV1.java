@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package example.models;
+package example.models.v1;
 
 import com.yahoo.elide.annotation.Include;
 import com.yahoo.elide.graphql.subscriptions.annotations.Subscription;
@@ -18,12 +18,12 @@ import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-@Include(name = "group", description = "Artifact group.", friendlyName = "Group")
+@Include(name = "groupV1", description = "Artifact group.", friendlyName = "GroupV1")
 @Table(name = "artifactgroup")
 @Entity
 @Subscription
 @Data
-public class ArtifactGroup {
+public class ArtifactGroupV1 {
     @Id
     private String name = "";
 
@@ -35,5 +35,5 @@ public class ArtifactGroup {
 
     @SubscriptionField
     @OneToMany(mappedBy = "group")
-    private List<ArtifactProduct> products = new ArrayList<>();
+    private List<ArtifactProductV1> products = new ArrayList<>();
 }
