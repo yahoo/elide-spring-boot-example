@@ -61,11 +61,30 @@
       type="application/javascript"
     ></script>
     <script>
+      let search;
+      if(parent.window) {
+        search = parent.window.location.search;
+      }
+      if(!search) {
+        search = window.location.search;
+      }
+      const searchParams = new URLSearchParams(search);
+      let path = searchParams.get('path');
+      if(!path) {
+        path = '';
+      } else {
+        searchParams.delete('path');
+        search = searchParams.toString();
+        if(search) {
+          search = `?${search}`
+        }
+      }
+
       const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf('/graphiql'));
       const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
       const subscriptionUrl = protocol + '://' + window.location.host + contextPath + '/subscription';
       const wsClient = graphqlWs.createClient({
-        url: subscriptionUrl,
+        url: `${subscriptionUrl}${path}${search}`,
         lazy: false, // connect as soon as the page opens
       });
       function fetcher(payload) {

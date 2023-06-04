@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-@Include(rootLevel = false, name = "productV1", description = "Artifact product.", friendlyName = "ProductV1")
+@Include(rootLevel = false, name = "product", description = "Artifact product.", friendlyName = "ProductV1")
 @Table(name = "artifactproduct")
 @Entity
 public class ArtifactProductV1 {
