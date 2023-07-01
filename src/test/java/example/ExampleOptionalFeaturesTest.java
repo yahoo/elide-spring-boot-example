@@ -25,7 +25,7 @@ public class ExampleOptionalFeaturesTest extends IntegrationTest {
         public void testAsyncApiEndPoint() throws Exception {
                 given()
                         .when()
-                        .get("/api/v1/asyncQuery")
+                        .get("/api/asyncQuery")
                         .then()
                         .statusCode(200);
         }

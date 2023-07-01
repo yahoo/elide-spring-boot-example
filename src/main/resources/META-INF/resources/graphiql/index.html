@@ -116,7 +116,7 @@ https://github.com/graphql/graphiql/blob/f94f4bdcae15ccf2402cd3c98bf3c3716368688
         // In a PR preview, it connects to the Star Wars API externally.
         // Change this to point wherever you host your GraphQL server.
         const isDev = !window.location.hostname.match(/(^|\.)netlify\.com$|(^|\.)graphql\.org$/)
-        const api = '/graphql/api/v1';
+        const api = '../graphql/api';
         return fetch(api, {
           method: 'post',
           headers: {

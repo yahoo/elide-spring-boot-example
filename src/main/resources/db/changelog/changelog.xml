@@ -84,6 +84,15 @@
        ('elide-datastore-hibernate5','Hibernate5 Datastore','A datastore that uses Hibernate 5 to communicate with the database','com.yahoo.elide'),
        ('elide-standalone','Standalone','A pre-configured, standalone Elide webservice','com.yahoo.elide');
 
+    INSERT INTO ArtifactVersion (name, artifact_name) VALUES
+       ('1.0.0','elide-standalone'),
+       ('2.0.0','elide-core'),
+       ('3.0.0','elide-core'),
+       ('4.0.0','elide-core'),
+       ('5.0.0','elide-core'),
+       ('6.0.0','elide-core'),
+       ('7.0.0','elide-core');
+
     INSERT INTO Downloads (group_id, product_id, date, downloads) VALUES
             ('com.example.repository','elide-core','2020-01-01', 10),
             ('com.example.repository','elide-core','2020-01-02', 11),

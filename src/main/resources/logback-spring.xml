@@ -40,6 +40,8 @@
 
     <!-- Log Analytic SQL Queries -->
     <logger name="com.yahoo.elide.datastores.aggregation.core.Slf4jQueryLogger" level="DEBUG" />
+    
+    <logger name="io.swagger.v3.core.util.ReferenceTypeUtils" level="OFF" />
 
     <root level="info">
         <appender-ref ref="STDOUT" />

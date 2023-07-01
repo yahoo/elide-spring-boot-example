@@ -4,14 +4,14 @@
  * See LICENSE file in project root for terms.    
  */    
 
-package example;    
+package example.config;    
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import lombok.Data;    
 
 @Data    
-@ConfigurationProperties(prefix = "security")
+@ConfigurationProperties(prefix = "app.security")
 public class SecurityConfigProperties {
     private String origin = "*";
 }
