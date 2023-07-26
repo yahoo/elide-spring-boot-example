@@ -15,14 +15,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.2</version>
     </parent>
 
     <properties>
         <jar.finalName>elide-spring-boot</jar.finalName>
         <java.version>17</java.version>
 
-        <elide.version>7.0.0-pr5</elide.version>
+        <elide.version>7.0.0-pr6</elide.version>
 
         <springdoc.version>2.1.0</springdoc.version>
         <logback-access-spring-boot-starter.version>4.0.0</logback-access-spring-boot-starter.version>
@@ -89,6 +89,11 @@
                     <groupId>com.vaadin.external.google</groupId>
                     <artifactId>android-json</artifactId>
                 </exclusion>
+                <!-- Remove commons-logging as it conflicts with spring-jcl -->
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -116,6 +121,13 @@
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>artemis-jakarta-server</artifactId>
+            <exclusions>
+                <!-- Remove commons-logging as it conflicts with spring-jcl -->
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -152,6 +164,13 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <!-- Remove commons-logging as it conflicts with spring-jcl -->
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
