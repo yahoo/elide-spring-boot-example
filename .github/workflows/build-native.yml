@@ -1,0 +1,87 @@
+name: Build Native
+
+on: workflow_dispatch
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build native on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        java-version: ['17']
+        include:
+        - os: ubuntu-latest
+          native-build-args: --verbose -J-Xmx11g -H:-DeadlockWatchdogExitOnTimeout -H:DeadlockWatchdogInterval=0
+          executable-suffix: ''
+        - os: macos-latest
+          native-build-args: --verbose -J-Xmx13g
+          executable-suffix: ''
+        - os: windows-latest
+          native-build-args: --verbose -J-Xmx11g -H:-DeadlockWatchdogExitOnTimeout -H:DeadlockWatchdogInterval=0
+          executable-suffix: '.exe'
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Set up GraalVM (Java ${{ matrix.java-version }})
+#        uses: graalvm/setup-graalvm@v1.1.4.2
+        uses: graalvm/setup-graalvm@6c7d417a1ef253f4d667a69e6a5716927746e251
+        with:
+          java-version: '${{ matrix.java-version }}'
+          distribution: 'graalvm-community'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+      - name: Java version
+        run: |
+          java --version
+          native-image --version
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven          
+# The public Linux runner typically only has 7 GB ram which is insufficient
+      - name: Configure virtual memory (Linux)
+        if: runner.os == 'Linux'
+#        uses: pierotofy/set-swap-space@v1.0
+        uses: pierotofy/set-swap-space@49819abfb41bd9b44fb781159c033dba90353a7c
+        with:
+          swap-size-gb: 11
+# The public Windows runner typically only has 7 GB ram which is insufficient
+      - name: Configure virtual memory (Windows)
+#        uses: al-cheb/configure-pagefile-action@v1.3
+        uses: al-cheb/configure-pagefile-action@86589fd789a4de3e62ba628dda2cb10027b66d67
+        if: runner.os == 'Windows'
+        with:
+          minimum-size: 11GB
+          maximum-size: 11GB
+      - name: Memory (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          echo "Page file allocated size:"
+          (Get-CimInstance Win32_PageFileUsage).AllocatedBaseSize
+          echo "Physical memory:"
+          (Get-WMIObject Win32_PhysicalMemory |  Measure-Object Capacity -Sum).sum/1GB
+        shell: pwsh
+      - name: Build native images
+        run: mvn -B "-Dnative.build-args=${{ matrix.native-build-args }}" -Pnative native:compile
+      - name: Archive binary
+        uses: actions/upload-artifact@v3
+        with:
+          name: elide-spring-boot-example-${{ matrix.os }}
+          path: target/elide-spring-boot${{ matrix.executable-suffix }}
+      - name: Generate build reports (On Failure)
+        run: |
+          mvn surefire-report:report-only -Daggregate=true
+        if: failure()
+      - name: Archive build reports (On Failure)
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: build-reports-${{ matrix.os }}
+          path: 'target/site/'

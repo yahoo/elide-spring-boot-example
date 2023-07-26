@@ -1,0 +1,50 @@
+name: Build Java
+
+on: workflow_dispatch
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build java on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        java-version: ['17']
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Set up JDK (Java ${{ matrix.java-version }})
+        uses: actions/setup-java@v3
+        with:
+          java-version: '${{ matrix.java-version }}'
+          distribution: 'temurin'
+      - name: Java version
+        run: |
+          java --version
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven          
+      - name: Build java
+        run: mvn -B package
+      - name: Archive binary
+        uses: actions/upload-artifact@v3
+        with:
+          name: elide-spring-boot-example-${{ matrix.os }}
+          path: target/elide-spring-boot-1.0.0.jar
+      - name: Generate build reports (On Failure)
+        run: |
+          mvn surefire-report:report-only -Daggregate=true
+        if: failure()
+      - name: Archive build reports (On Failure)
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: build-reports-${{ matrix.os }}
+          path: 'target/site/'
