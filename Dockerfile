@@ -1,10 +1,10 @@
-FROM maven:3.8.2-openjdk-11 as build
+FROM maven:3.9.3-eclipse-temurin-17-alpine as build
 WORKDIR /workspace/app
 COPY pom.xml .
 COPY src src
 RUN mvn install -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
-FROM adoptopenjdk/openjdk11
+FROM eclipse-temurin:17-alpine
 ARG DEPENDENCY=/workspace/app/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
