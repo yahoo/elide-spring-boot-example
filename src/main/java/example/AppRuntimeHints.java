@@ -29,6 +29,11 @@ public class AppRuntimeHints implements RuntimeHintsRegistrar {
                 MemberCategory.INVOKE_DECLARED_CONSTRUCTORS);
 
         /*
+         * Logback Access Spring
+         */
+        hints.resources().registerPattern("dev/akkinoc/spring/boot/logback/access/logback-access-spring.xml");
+
+        /*
          * ActiveMQ
          */
         hints.resources().registerPattern("activemq-version.properties");
@@ -64,5 +69,11 @@ public class AppRuntimeHints implements RuntimeHintsRegistrar {
 
         hints.reflection().registerType(TypeReference.of("org.jctools.queues.BaseMpscLinkedArrayQueueProducerFields"),
                 MemberCategory.DECLARED_FIELDS);
+
+        /*
+         * Spring Framework springframework.jms.connection.SingleConnectionFactory 
+         */
+        hints.proxies().registerJdkProxy(jakarta.jms.Connection.class, jakarta.jms.QueueConnection.class,
+                jakarta.jms.TopicConnection.class);
     }
 }
