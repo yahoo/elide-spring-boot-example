@@ -21,7 +21,6 @@
         </rollingPolicy>
     </appender>
 
-
     <logger name="com.yahoo.elide.graphql.subscriptions" level="DEBUG" />
 
     <!-- Log Hibernate SQL Statements -->
