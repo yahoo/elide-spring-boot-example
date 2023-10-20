@@ -6,12 +6,13 @@
 
 package example;    
 
-import org.springframework.boot.context.properties.ConfigurationProperties;    
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import lombok.Data;    
 
-@Data    
-@ConfigurationProperties(prefix = "security")    
+@Data
+@ConfigurationProperties(prefix = "security")
 public class SecurityConfigProperties {    
     private String origin = "*";
 }

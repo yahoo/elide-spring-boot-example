@@ -64,19 +64,19 @@ spring:
 server:
   port: 8080
 
-logging:
-  path: /tmp
-
 security:
   origin: "*"
-
+logging:
+  file:
+    path: /tmp
 ---
 elide:
   aggregation-store:
     default-dialect: Postgres
 
 spring:
-  profiles: production
+  profiles:
+    active: production
   jpa:
     hibernate:
       show_sql: true

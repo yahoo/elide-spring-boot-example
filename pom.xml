@@ -15,15 +15,18 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.6</version>
+        <version>3.1.0</version>
     </parent>
 
     <properties>
         <jar.finalName>elide-spring-boot</jar.finalName>
         <postgres.version>42.3.8</postgres.version>
         <liquibase.version>4.8.0</liquibase.version>
-        <elide.version>6.1.4</elide.version>
-        <spring.version>2.5.6</spring.version>
+        <jakarta-servlet.version>5.0.0</jakarta-servlet.version>
+
+        <elide.version>7.0.0-pr6</elide.version>
+        <spring-boot.version>3.1.0</spring-boot.version>
+
         <junit.jupiter.version>5.5.2</junit.jupiter.version>
         <java.version>11</java.version>
     </properties>
@@ -34,13 +37,20 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
+            <version>1.18.28</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-            <version>${spring.version}</version>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <version>${spring-boot.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -99,9 +109,9 @@
 
         <!-- Request/Response logging -->
         <dependency>
-            <groupId>net.rakugakibox.spring.boot</groupId>
+            <groupId>dev.akkinoc.spring.boot</groupId>
             <artifactId>logback-access-spring-boot-starter</artifactId>
-            <version>2.7.1</version>
+            <version>4.0.0</version>
         </dependency>
         <!-- Test -->
 
@@ -122,16 +132,28 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring.version}</version>
+            <version>${spring-boot.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>5.0.0</version>
         </dependency>
 
         <!-- For hot reloads in Intellij/Eclipse -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <version>${spring.version}</version>
+            <version>${spring-boot.version}</version>
             <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>${spring-boot.version}</version>
         </dependency>
 
         <dependency>
@@ -154,12 +176,21 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.1.2</version>
+                <configuration>
+                    <argLine>
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                        --add-opens java.base/java.util=ALL-UNNAMED
+                        --add-opens java.base/java.util.regex=ALL-UNNAMED
+                        --add-opens java.base/java.net=ALL-UNNAMED
+                        --add-opens java.base/sun.net.spi=ALL-UNNAMED
+                    </argLine>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.version}</version>
+                <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>example.App</mainClass>
                     <layout>JAR</layout>
