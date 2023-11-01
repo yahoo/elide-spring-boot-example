@@ -4,16 +4,19 @@
  * See LICENSE file in project root for terms.
  */
 
-package example;
+package example.config;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 import java.time.Duration;
 import java.util.Arrays;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -23,18 +26,16 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
  */
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+@EnableConfigurationProperties(SecurityConfigProperties.class)
+public class SecurityConfiguration {
 
-    @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-             .cors()
-                .and()
-             .headers().frameOptions().sameOrigin()  //Needed for Swagger and Graphiql iFrames.
-                .and()
-             .authorizeRequests().antMatchers("/**").permitAll()
-                .and()
-             .csrf().disable();
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.cors(withDefaults())
+            .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
+            .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests.anyRequest().permitAll())
+            .csrf(csrf -> csrf.disable());
+        return http.build();
     }
 
     @Bean

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <springProperty scope="context" name="logDir" source="logging.path"/>
+    <springProperty scope="context" name="logDir" source="logging.file.path"/>
     <springProperty scope="context" name="springAppName" source="spring.application.name"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -40,6 +40,8 @@
 
     <!-- Log Analytic SQL Queries -->
     <logger name="com.yahoo.elide.datastores.aggregation.core.Slf4jQueryLogger" level="DEBUG" />
+    
+    <logger name="io.swagger.v3.core.util.ReferenceTypeUtils" level="OFF" />
 
     <root level="info">
         <appender-ref ref="STDOUT" />

@@ -7,19 +7,18 @@ package example;
 
 import com.yahoo.elide.core.exceptions.HttpStatus;
 import com.yahoo.elide.datastores.jms.websocket.SubscriptionWebSocketTestClient;
+import com.yahoo.elide.jsonapi.JsonApi;
 import com.yahoo.elide.test.graphql.GraphQLDSL;
-import com.yahoo.elide.spring.controllers.JsonApiController;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.jdbc.Sql;
 
-import javax.websocket.ContainerProvider;
-import javax.websocket.Session;
-import javax.websocket.WebSocketContainer;
-import javax.ws.rs.core.MediaType;
+import jakarta.websocket.ContainerProvider;
+import jakarta.websocket.Session;
+import jakarta.websocket.WebSocketContainer;
+import jakarta.ws.rs.core.MediaType;
 
-import static com.jayway.restassured.RestAssured.given;
-import static com.jayway.restassured.RestAssured.when;
-import static com.yahoo.elide.Elide.JSONAPI_CONTENT_TYPE;
+import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
 import static com.yahoo.elide.test.graphql.GraphQLDSL.field;
 import static com.yahoo.elide.test.graphql.GraphQLDSL.query;
 import static com.yahoo.elide.test.graphql.GraphQLDSL.selection;
@@ -56,7 +55,7 @@ public class ExampleTest extends IntegrationTest {
     })
     void jsonApiGetTest() {
         when()
-            .get("/api/v1/group")
+            .get("/api/group")
             .then()
             .log().all()
             .body(equalTo(
@@ -86,7 +85,7 @@ public class ExampleTest extends IntegrationTest {
     })
     void jsonApiPatchTest() {
         given()
-            .contentType(JsonApiController.JSON_API_CONTENT_TYPE)
+            .contentType(JsonApi.MEDIA_TYPE)
             .body(
                 datum(
                     resource(
@@ -99,12 +98,12 @@ public class ExampleTest extends IntegrationTest {
                 )
             )
             .when()
-                .patch("/api/v1/group/com.example.repository")
+                .patch("/api/group/com.example.repository")
             .then()
                 .statusCode(HttpStatus.SC_NO_CONTENT);
 
         when()
-                .get("/api/v1/group")
+                .get("/api/group")
                 .then()
                 .log().all()
                 .body(equalTo(
@@ -132,7 +131,7 @@ public class ExampleTest extends IntegrationTest {
     })
     void jsonApiPostTest() {
         given()
-                .contentType(JsonApiController.JSON_API_CONTENT_TYPE)
+                .contentType(JsonApi.MEDIA_TYPE)
                 .body(
                         datum(
                                 resource(
@@ -145,7 +144,7 @@ public class ExampleTest extends IntegrationTest {
                         )
                 )
                 .when()
-                .post("/api/v1/group")
+                .post("/api/group")
                 .then()
                 .body(equalTo(datum(
                         resource(
@@ -171,7 +170,7 @@ public class ExampleTest extends IntegrationTest {
     })
     void jsonApiDeleteTest() {
         when()
-            .delete("/api/v1/group/com.example.repository")
+            .delete("/api/group/com.example.repository")
         .then()
             .statusCode(HttpStatus.SC_NO_CONTENT);
     }
@@ -186,12 +185,12 @@ public class ExampleTest extends IntegrationTest {
     })
     void jsonApiDeleteRelationshipTest() {
         given()
-            .contentType(JsonApiController.JSON_API_CONTENT_TYPE)
+            .contentType(JsonApi.MEDIA_TYPE)
             .body(datum(
                 linkage(type("product"), id("foo"))
             ))
         .when()
-                .delete("/api/v1/group/com.example.repository")
+                .delete("/api/group/com.example.repository")
                 .then()
                 .statusCode(HttpStatus.SC_NO_CONTENT);
     }
@@ -226,7 +225,7 @@ public class ExampleTest extends IntegrationTest {
             ).toQuery() + "\" }"
         )
         .when()
-            .post("/graphql/api/v1")
+            .post("/graphql/api")
             .then()
             .body(equalTo(GraphQLDSL.document(
                 selection(
@@ -261,8 +260,8 @@ public class ExampleTest extends IntegrationTest {
             client.waitOnSubscribe(10);
 
             given()
-                    .contentType(JSONAPI_CONTENT_TYPE)
-                    .accept(JSONAPI_CONTENT_TYPE)
+                    .contentType(JsonApi.MEDIA_TYPE)
+                    .accept(JsonApi.MEDIA_TYPE)
                     .body(
                             data(
                                     resource(
@@ -272,7 +271,7 @@ public class ExampleTest extends IntegrationTest {
                                     )
                             )
                     )
-                    .post("/api/v1/group")
+                    .post("/api/group")
                     .then().statusCode(org.apache.http.HttpStatus.SC_CREATED).body("data.id", equalTo("foo"));
 
 
@@ -282,7 +281,7 @@ public class ExampleTest extends IntegrationTest {
     }
 
     @Test
-    void swaggerDocumentTest() {
+    void openApiDocumentTest() {
         when()
                 .get("/doc")
                 .then()
@@ -300,7 +299,7 @@ public class ExampleTest extends IntegrationTest {
     public void testDownloadAPI() throws Exception {
         given()
                 .when()
-                .get("/api/v1/downloads?fields[downloads]=downloads,group,product")
+                .get("/api/downloads?fields[downloads]=downloads,group,product")
                 .then()
                 .statusCode(200);
     }

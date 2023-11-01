@@ -9,4 +9,5 @@ spring:
     name: Elide
 
 logging:
-  path: /tmp
+  file:
+    path: /tmp

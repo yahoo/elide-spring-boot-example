@@ -6,7 +6,7 @@
 
 package example;
 
-import static com.jayway.restassured.RestAssured.given;
+import static io.restassured.RestAssured.given;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.TestPropertySource;
 
@@ -25,7 +25,7 @@ public class ExampleOptionalFeaturesTest extends IntegrationTest {
         public void testAsyncApiEndPoint() throws Exception {
                 given()
                         .when()
-                        .get("/api/v1/asyncQuery")
+                        .get("/api/asyncQuery")
                         .then()
                         .statusCode(200);
         }

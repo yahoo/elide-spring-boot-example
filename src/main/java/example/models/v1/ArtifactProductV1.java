@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package example.models;
+package example.models.v1;
 
 import com.yahoo.elide.annotation.Include;
 
@@ -15,10 +15,10 @@ import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-@Include(rootLevel = false, name = "product", description = "Artifact product.", friendlyName = "Product")
+@Include(rootLevel = false, name = "product", description = "Artifact product.", friendlyName = "ProductV1")
 @Table(name = "artifactproduct")
 @Entity
-public class ArtifactProduct {
+public class ArtifactProductV1 {
     @Id
     private String name = "";
 
@@ -27,8 +27,8 @@ public class ArtifactProduct {
     private String description = "";
 
     @ManyToOne
-    private ArtifactGroup group = null;
+    private ArtifactGroupV1 group = null;
 
     @OneToMany(mappedBy = "artifact")
-    private List<ArtifactVersion> versions = new ArrayList<>();
+    private List<ArtifactVersionV1> versions = new ArrayList<>();
 }
