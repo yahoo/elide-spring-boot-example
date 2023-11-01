@@ -13,7 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.Date;
 
-@Include(rootLevel = false, name = "versionV1", description = "Artifact version.", friendlyName = "VersionV1")
+@Include(rootLevel = false, name = "version", description = "Artifact version.", friendlyName = "VersionV1")
 @Table(name = "artifactversion")
 @Entity
 public class ArtifactVersionV1 {

@@ -16,6 +16,10 @@ To build and run:
 2. java -jar target/elide-spring-boot-1.0.0.jar
 3. Browse http://localhost:8080/
 
+For API Versioning
+1. Browse http://localhost:8080/?path=/v1
+2. Browse http://localhost:8080/?path=/v2
+
 Springdoc is accessible at http://localhost:8080/swagger-ui/index.html.
 
 ## Docker and Containerize

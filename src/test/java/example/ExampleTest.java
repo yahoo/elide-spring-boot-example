@@ -19,7 +19,6 @@ import jakarta.ws.rs.core.MediaType;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
-import static com.yahoo.elide.Elide.JSONAPI_CONTENT_TYPE;
 import static com.yahoo.elide.test.graphql.GraphQLDSL.field;
 import static com.yahoo.elide.test.graphql.GraphQLDSL.query;
 import static com.yahoo.elide.test.graphql.GraphQLDSL.selection;
@@ -261,8 +260,8 @@ public class ExampleTest extends IntegrationTest {
             client.waitOnSubscribe(10);
 
             given()
-                    .contentType(JSONAPI_CONTENT_TYPE)
-                    .accept(JSONAPI_CONTENT_TYPE)
+                    .contentType(JsonApi.MEDIA_TYPE)
+                    .accept(JsonApi.MEDIA_TYPE)
                     .body(
                             data(
                                     resource(

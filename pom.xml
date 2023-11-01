@@ -15,18 +15,18 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.2</version>
+        <version>3.1.3</version>
     </parent>
 
     <properties>
         <jar.finalName>elide-spring-boot</jar.finalName>
         <java.version>17</java.version>
 
-        <elide.version>7.0.0-pr6</elide.version>
+        <elide.version>7.0.0</elide.version>
 
-        <springdoc.version>2.1.0</springdoc.version>
+        <springdoc.version>2.2.0</springdoc.version>
         <logback-access-spring-boot-starter.version>4.0.0</logback-access-spring-boot-starter.version>
-        <snakeyaml.version>2.0</snakeyaml.version>
+        <snakeyaml.version>2.2</snakeyaml.version>
 
         <!-- Jetty 11 uses servlet-api 5 and not 6 -->
         <jakarta.servlet-api.version>5.0.0</jakarta.servlet-api.version>

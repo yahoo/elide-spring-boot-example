@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-@Include(name = "groupV1", description = "Artifact group.", friendlyName = "GroupV1")
+@Include(name = "group", description = "Artifact group.", friendlyName = "GroupV1")
 @Table(name = "artifactgroup")
 @Entity
 @Subscription

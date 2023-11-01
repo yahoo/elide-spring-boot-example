@@ -17,6 +17,8 @@ elide:
     subscription:
       enabled: true
       path: /subscription
+    federation:
+      enabled: true
   api-docs:
     enabled: true
     path: /doc
