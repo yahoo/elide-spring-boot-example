@@ -21,7 +21,6 @@
         </rollingPolicy>
     </appender>
 
-
     <logger name="com.yahoo.elide.graphql.subscriptions" level="DEBUG" />
 
     <!-- Log Hibernate SQL Statements -->
@@ -29,7 +28,8 @@
     <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" />
 
     <!-- Log JPA Datastore HQL Statements -->
-    <logger name="com.yahoo.elide.core.hibernate.hql.DefaultQueryLogger" level="DEBUG" />
+    <logger name="com.yahoo.elide.datastores.jpql.query.DefaultQueryLogger" level="DEBUG" />
+
 
     <!-- Log SQL/JPQL Timings -->
     <logger name="com.yahoo.elide.core.utils.TimedFunction" level="DEBUG" />
