@@ -33,6 +33,8 @@
 
         <!-- see https://github.com/graalvm/native-build-tools/issues/358 -->
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+
+        <native.build-args>-H:+PrintClassInitialization -H:+ReportExceptionStackTraces</native.build-args>
     </properties>
 
     <dependencyManagement>
@@ -237,9 +239,6 @@
                 <artifactId>native-maven-plugin</artifactId>
                 <configuration>
                     <buildArgs combine.children="append">
-                        <buildArg>-H:+PrintClassInitialization</buildArg>
-                        <buildArg>-H:+ReportExceptionStackTraces</buildArg>
-                        
                         <!-- Netty -->
                         <buildArg>--add-opens=java.base/java.nio=ALL-UNNAMED</buildArg>
                         <buildArg>--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED</buildArg>
@@ -250,6 +249,8 @@
 
                         <!-- see org.apache.activemq.artemis.logs.AuditLogger-->
                         <buildArg>-H:IncludeResourceBundles=sun.security.util.Resources</buildArg>
+
+                        <buildArg>${native.build-args}</buildArg>
                     </buildArgs>
                 </configuration>
             </plugin>
