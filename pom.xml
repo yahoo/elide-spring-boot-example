@@ -15,34 +15,26 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.3</version>
+        <version>3.3.2</version>
     </parent>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
         <jar.finalName>elide-spring-boot</jar.finalName>
         <java.version>17</java.version>
 
-        <elide.version>7.0.0</elide.version>
+        <elide.version>7.1.0</elide.version>
 
-        <springdoc.version>2.2.0</springdoc.version>
-        <logback-access-spring-boot-starter.version>4.0.0</logback-access-spring-boot-starter.version>
-        <snakeyaml.version>2.2</snakeyaml.version>
+        <springdoc.version>2.6.0</springdoc.version>
+        <logback-access-spring-boot-starter.version>4.2.2</logback-access-spring-boot-starter.version>
 
-        <!-- Jetty 11 uses servlet-api 5 and not 6 -->
-        <jakarta.servlet-api.version>5.0.0</jakarta.servlet-api.version>
-
-        <!-- see https://github.com/graalvm/native-build-tools/issues/358 -->
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>jakarta.servlet</groupId>
-                <artifactId>jakarta.servlet-api</artifactId>
-                <version>${jakarta.servlet-api.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>com.yahoo.elide</groupId>
                 <artifactId>elide-bom</artifactId>
@@ -58,6 +50,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -84,15 +77,6 @@
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.vaadin.external.google</groupId>
-                    <artifactId>android-json</artifactId>
-                </exclusion>
-                <!-- Remove commons-logging as it conflicts with spring-jcl -->
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -150,13 +134,18 @@
             <groupId>dev.akkinoc.spring.boot</groupId>
             <artifactId>logback-access-spring-boot-starter</artifactId>
             <version>${logback-access-spring-boot-starter.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback.access</groupId>
+                    <artifactId>tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Test -->
         <dependency>
             <groupId>com.yahoo.elide</groupId>
             <artifactId>elide-test-helpers</artifactId>
-            <version>${elide.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -177,12 +166,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.vaadin.external.google</groupId>
-                    <artifactId>android-json</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!-- For hot reloads in Intellij/Eclipse -->
@@ -205,9 +188,9 @@
         </dependency>
 
         <dependency>
-        	<groupId>org.springframework.boot</groupId>
-        	<artifactId>spring-boot-configuration-processor</artifactId>
-        	<optional>true</optional>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
@@ -223,6 +206,12 @@
                 <configuration>
                     <mainClass>example.App</mainClass>
                     <layout>JAR</layout>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
                 </configuration>
                 <executions>
                     <execution>

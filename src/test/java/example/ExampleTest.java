@@ -10,12 +10,12 @@ import com.yahoo.elide.datastores.jms.websocket.SubscriptionWebSocketTestClient;
 import com.yahoo.elide.jsonapi.JsonApi;
 import com.yahoo.elide.test.graphql.GraphQLDSL;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 
 import jakarta.websocket.ContainerProvider;
 import jakarta.websocket.Session;
 import jakarta.websocket.WebSocketContainer;
-import jakarta.ws.rs.core.MediaType;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
@@ -208,8 +208,8 @@ public class ExampleTest extends IntegrationTest {
     })
     void graphqlTest() {
         given()
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .accept(MediaType.APPLICATION_JSON_VALUE)
             .body("{ \"query\" : \"" + GraphQLDSL.document(
                 query(
                     selection(
