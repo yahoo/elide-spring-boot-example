@@ -15,7 +15,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.2</version>
+        <version>3.4.0</version>
     </parent>
 
     <properties>
@@ -25,12 +25,13 @@
         <jar.finalName>elide-spring-boot</jar.finalName>
         <java.version>17</java.version>
 
-        <elide.version>7.1.0</elide.version>
+        <elide.version>7.1.4</elide.version>
 
         <springdoc.version>2.6.0</springdoc.version>
-        <logback-access-spring-boot-starter.version>4.2.2</logback-access-spring-boot-starter.version>
+        <logback-access-spring-boot-starter.version>4.5.0</logback-access-spring-boot-starter.version>
+        <logback-access-jetty12.version>2.0.6</logback-access-jetty12.version>
 
-        <maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -134,13 +135,14 @@
             <groupId>dev.akkinoc.spring.boot</groupId>
             <artifactId>logback-access-spring-boot-starter</artifactId>
             <version>${logback-access-spring-boot-starter.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>ch.qos.logback.access</groupId>
-                    <artifactId>tomcat</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback.access</groupId>
+            <artifactId>logback-access-jetty12</artifactId>
+            <version>${logback-access-jetty12.version}</version>
+        </dependency>
+
 
         <!-- Test -->
         <dependency>

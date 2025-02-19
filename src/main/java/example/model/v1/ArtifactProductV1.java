@@ -3,23 +3,34 @@
  * Licensed under the Apache License, Version 2.0
  * See LICENSE file in project root for terms.
  */
-package example.models.v1;
+package example.model.v1;
 
 import com.yahoo.elide.annotation.Include;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Include(rootLevel = false, name = "product", description = "Artifact product.", friendlyName = "ProductV1")
 @Table(name = "artifactproduct")
 @Entity
+@Data
 public class ArtifactProductV1 {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRODUCT_SEQ")
+    @SequenceGenerator(name = "PRODUCT_SEQ", allocationSize = 1)
+    private Long id;
+    
     private String name = "";
 
     private String commonName = "";
@@ -27,8 +38,10 @@ public class ArtifactProductV1 {
     private String description = "";
 
     @ManyToOne
+    @EqualsAndHashCode.Exclude
     private ArtifactGroupV1 group = null;
 
-    @OneToMany(mappedBy = "artifact")
+    @OneToMany(mappedBy = "product")
+    @EqualsAndHashCode.Exclude
     private List<ArtifactVersionV1> versions = new ArrayList<>();
 }

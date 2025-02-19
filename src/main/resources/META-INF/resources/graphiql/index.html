@@ -90,11 +90,21 @@
           lazy: false, // connect as soon as the page opens
         })
       });
+      let defaultHeaders;
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; XSRF-TOKEN=`);
+      if (parts.length === 2) {
+        const token = parts.pop().split(';').shift();
+        if (token) {
+          defaultHeaders = `{ "X-XSRF-TOKEN": "${token}" }`;
+        }
+      }
       const root = ReactDOM.createRoot(document.getElementById('graphiql'));
       root.render(
         React.createElement(GraphiQL, {
           fetcher,
           defaultEditorToolsVisibility: true,
+          defaultHeaders,
         }),
       );
     </script>

@@ -6,7 +6,12 @@
 
 app:
   security:
+    enabled: false
     origin: "*"
+    id-obfuscation:
+      enabled: true
+      password: yourPassword
+      salt: 5c0744940b5c369b
 elide:
   json-api:
     enabled: true
@@ -22,15 +27,16 @@ elide:
   api-docs:
     enabled: true
     path: /doc
+    version: openapi-3-1
   async:
-    enabled: false
+    enabled: true
     thread-pool-size: 2
     cleanup:
       enabled: true
       query-max-run-time: 65s
       query-retention-duration: 7d
     export:
-      enabled: false
+      enabled: true
   aggregation-store:
     enabled: true
     default-dialect: h2
@@ -40,6 +46,9 @@ elide:
       enabled: true
       path: analytics
 spring:
+  devtools:
+    restart:
+      enabled: false
   cloud:
     refresh:
       enabled: false
@@ -73,5 +82,9 @@ logging:
   file:
     path: /tmp
 springdoc:
+  api-docs:
+    version: openapi-3-1
   swagger-ui:
     tags-sorter: alpha
+    csrf:
+      enabled: true

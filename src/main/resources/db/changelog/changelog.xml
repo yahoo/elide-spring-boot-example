@@ -3,27 +3,33 @@
     <changeSet author="admin" id="1539122071">
         <sql>
     CREATE TABLE ArtifactGroup (
+       id integer NOT NULL,
        name varchar(255) NOT NULL,
        commonName varchar(255) DEFAULT NULL,
        description varchar(255) DEFAULT NULL,
-       PRIMARY KEY (name)
+       createdOn timestamp with time zone NOT NULL,
+       createdBy varchar(255) NOT NULL,
+       PRIMARY KEY (id),
+       UNIQUE (name)
     );
 
     CREATE TABLE ArtifactProduct (
+       id integer NOT NULL,
        name varchar(255) NOT NULL,
        commonName varchar(255) DEFAULT NULL,
        description varchar(255) DEFAULT NULL,
-       group_name varchar(255) DEFAULT NULL,
-       PRIMARY KEY (name),
-       FOREIGN KEY (group_name) REFERENCES ArtifactGroup(name)
+       group_id integer DEFAULT NULL,
+       PRIMARY KEY (id),
+       FOREIGN KEY (group_id) REFERENCES ArtifactGroup(id)
     );
 
     CREATE TABLE ArtifactVersion (
+       id integer NOT NULL,
        name varchar(255) NOT NULL,
-       createdAt timestamp DEFAULT NULL,
-       artifact_name varchar(255) DEFAULT NULL,
-       PRIMARY KEY (name),
-       FOREIGN KEY (artifact_name) REFERENCES ArtifactProduct(name)
+       createdOn timestamp with time zone NOT NULL,
+       product_id integer DEFAULT NULL,
+       PRIMARY KEY (id),
+       FOREIGN KEY (product_id) REFERENCES ArtifactProduct(id)
     );
 
     CREATE TABLE AsyncQuery (
@@ -63,40 +69,112 @@
        primary key (id)
     );
 
-    CREATE TABLE Downloads (
+    CREATE TABLE Download (
        group_id varchar(255) NOT NULL,
        product_id varchar(255) NOT NULL,
        date timestamp NOT NULL,
        downloads integer NOT NULL,
-       FOREIGN KEY (group_id) REFERENCES ArtifactGroup(name),
-       FOREIGN KEY (product_id) REFERENCES ArtifactProduct(name)
+       FOREIGN KEY (group_id) REFERENCES ArtifactGroup(id),
+       FOREIGN KEY (product_id) REFERENCES ArtifactProduct(id)
     );
         </sql>
     </changeSet>
     <changeSet author="admin" id="1539122270">
         <sql>
-    INSERT INTO ArtifactGroup (name, commonName, description) VALUES
-       ('com.example.repository','Example Repository','The code for this project'),
-       ('com.yahoo.elide','Elide','The magical library powering this project');
+    CREATE SEQUENCE GROUP_SEQ START WITH 6;
 
-    INSERT INTO ArtifactProduct (name, commonName, description, group_name) VALUES
-       ('elide-core','Core','The guts of Elide','com.yahoo.elide'),
-       ('elide-datastore-hibernate5','Hibernate5 Datastore','A datastore that uses Hibernate 5 to communicate with the database','com.yahoo.elide'),
-       ('elide-standalone','Standalone','A pre-configured, standalone Elide webservice','com.yahoo.elide');
+    INSERT INTO ArtifactGroup (id, name, commonName, description, createdOn, createdBy) VALUES
+       (1,'com.example.repository','Example Repository','The code for this project', '2020-02-01 00:00:00', 'user'),
+       (2,'com.yahoo.elide','Elide','The magical library powering this project', '2019-02-01 00:00:00', 'user'),
+       (3,'org.springframework.boot','Spring Boot','Spring Boot makes it easy to create stand-alone applications', '2022-02-05 00:00:00', 'user'),
+       (4,'org.springframework.security','Spring Security','Spring Security is a powerful and highly customizable authentication and access-control framework', '2019-02-01 00:00:00', 'user'),
+       (5,'org.springframework.cloud','Spring Cloud','Spring Cloud provides tools for developers to quickly build some of the common patterns in distributed systems', '2020-06-05 00:00:00', 'user');
 
-    INSERT INTO ArtifactVersion (name, artifact_name) VALUES
-       ('1.0.0','elide-standalone'),
-       ('2.0.0','elide-core'),
-       ('3.0.0','elide-core'),
-       ('4.0.0','elide-core'),
-       ('5.0.0','elide-core'),
-       ('6.0.0','elide-core'),
-       ('7.0.0','elide-core');
+    CREATE SEQUENCE PRODUCT_SEQ START WITH 4;
 
-    INSERT INTO Downloads (group_id, product_id, date, downloads) VALUES
-            ('com.example.repository','elide-core','2020-01-01', 10),
-            ('com.example.repository','elide-core','2020-01-02', 11),
-            ('com.example.repository','elide-core','2020-01-03', 14);
+    INSERT INTO ArtifactProduct (id, name, commonName, description, group_id) VALUES
+       (1,'elide-core','Core','The guts of Elide',2),
+       (2,'elide-datastore-hibernate5','Hibernate5 Datastore','A datastore that uses Hibernate 5 to communicate with the database',2),
+       (3,'elide-standalone','Standalone','A pre-configured, standalone Elide webservice',2);
+
+    CREATE SEQUENCE VERSION_SEQ START WITH 10;
+
+    INSERT INTO ArtifactVersion (id, name, createdOn, product_id) VALUES
+       (1,'3.1.2','2017-09-21 00:00:00',3),
+       (2,'4.1.0','2018-03-20 00:00:00',3),
+       (3,'1.0.0','2015-10-19 00:00:00',1),
+       (4,'2.0.0','2016-02-29 00:00:00',1),
+       (5,'3.0.0','2017-03-06 00:00:00',1),
+       (6,'4.0.0','2018-01-31 00:00:00',1),
+       (7,'5.0.0','2021-05-23 00:00:00',1),
+       (8,'6.0.0','2021-11-03 00:00:00',1),
+       (9,'7.0.0','2023-10-28 00:00:00',1);
+
+    INSERT INTO Download (group_id, product_id, date, downloads) VALUES
+            (2,3,'2020-01-01', 3),
+            (2,3,'2020-01-02', 6),
+            (2,3,'2020-01-03', 2),
+            (2,1,'2020-01-01', 10),
+            (2,1,'2020-01-02', 11),
+            (2,1,'2020-01-03', 14);
         </sql>
     </changeSet>
+    <changeSet author="admin" id="1539122271">
+        <sql>
+    CREATE SEQUENCE USER_SEQ START WITH 3;
+
+    CREATE TABLE AppUser (
+       id integer NOT NULL,
+       username varchar(255) NOT NULL,
+       name varchar(255) NOT NULL,
+       PRIMARY KEY (id)
+    );
+
+    INSERT INTO AppUser (id, username, name) VALUES (1, 'admin', 'Administrator');
+    INSERT INTO AppUser (id, username, name) VALUES (2, 'user', 'User');
+
+    CREATE SEQUENCE POST_SEQ START WITH 6;
+
+    CREATE TABLE Post (
+       id integer NOT NULL,
+       entity_id varchar(36) NOT NULL,
+       title varchar(255) NOT NULL,
+       content varchar(255) NOT NULL,
+       content_html varchar(255) NOT NULL,
+       created_by integer,
+       parent_id integer,
+       PRIMARY KEY (id),
+       FOREIGN KEY (parent_id) REFERENCES Post(id),
+       FOREIGN KEY (created_by) REFERENCES AppUser(id),
+       UNIQUE (entity_id)
+    );
+
+    INSERT INTO Post (id, entity_id, title, content, content_html, created_by) VALUES (1, '9b2f710d-9046-4f8c-95ee-1a3884d6d136', 'Getting Started', 'So You Want An API?', 'So You Want An API?', 2);
+    INSERT INTO Post (id, entity_id, title, content, content_html, created_by) VALUES (2, '31b129a7-d3e8-494d-b368-cc4aa901eb81', 'Features', 'Common API Features', 'Common API Features', 2);
+    INSERT INTO Post (id, entity_id, title, content, content_html, created_by) VALUES (3, 'f8174b67-6dc4-42a2-9e5e-c8295561f47a', 'Data Models', 'Elide generates its API entirely based on the concept of data models.', 'Elide generates its API entirely based on the concept of data models.', 2);
+    INSERT INTO Post (id, entity_id, title, content, content_html, created_by) VALUES (4, '8066f23e-e28e-4e4f-8a32-b65f2b57ff98', 'Security', 'Core Concepts', 'Core Concepts', 1);
+    INSERT INTO Post (id, entity_id, title, content, content_html, created_by) VALUES (5, '6328658e-43f2-4a2e-9c79-35324a0140ed', 'Analytic Query Support', 'Elide includes a semantic modeling layer and analytic query API for OLAP style queries against your database.', 'Elide includes a semantic modeling layer and analytic query API for OLAP style queries against your database.', 1);
+
+    CREATE SEQUENCE NOTE_SEQ START WITH 6;
+
+    CREATE TABLE Note (
+       id integer NOT NULL,
+       title varchar(255) NOT NULL,
+       content varchar(255) NOT NULL,
+       content_html varchar(255) NOT NULL,
+       created_by integer,
+       parent_id integer,
+       PRIMARY KEY (id),
+       FOREIGN KEY (created_by) REFERENCES AppUser(id),
+       FOREIGN KEY (parent_id) REFERENCES Note(id)
+    );
+
+    INSERT INTO Note (id, title, content, content_html, created_by) VALUES (1, 'Getting Started', 'So You Want An API?', 'So You Want An API?', 2);
+    INSERT INTO Note (id, title, content, content_html, created_by) VALUES (2, 'Features', 'Common API Features', 'Common API Features', 2);
+    INSERT INTO Note (id, title, content, content_html, created_by) VALUES (3, 'Data Models', 'Elide generates its API entirely based on the concept of data models.', 'Elide generates its API entirely based on the concept of data models.', 2);
+    INSERT INTO Note (id, title, content, content_html, created_by) VALUES (4, 'Security', 'Core Concepts', 'Core Concepts', 1);
+    INSERT INTO Note (id, title, content, content_html, created_by) VALUES (5, 'Analytic Query Support', 'Elide includes a semantic modeling layer and analytic query API for OLAP style queries against your database.', 'Elide includes a semantic modeling layer and analytic query API for OLAP style queries against your database.', 1);
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>

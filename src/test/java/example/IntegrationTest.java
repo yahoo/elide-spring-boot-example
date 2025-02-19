@@ -15,7 +15,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
  * Base class for running a set of functional Elide tests.  This class
  * sets up an Elide instance with an in-memory H2 database.
  */
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {
+        "app.security.id-obfuscation.enabled=false" })
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class IntegrationTest {
 

@@ -2,7 +2,7 @@
     tables: [
     {
         name: downloads
-        table: downloads
+        table: download
         friendlyName: Downloads
         description:
         '''
@@ -11,15 +11,15 @@
         joins: [
             {
                 name: artifactGroup
-                to: group
+                to: groups
                 kind: toOne
-                definition: '{{$group_id}} = {{artifactGroup.$name}}'
+                definition: '{{$group_id}} = {{artifactGroup.$id}}'
             },
             {
                 name: artifactProduct
-                to: product
+                to: products
                 kind: toOne
-                definition: '{{$product_id}} = {{artifactProduct.$name}}'
+                definition: '{{$product_id}} = {{artifactProduct.$id}}'
             }
         ]
         dimensions: [

@@ -7,6 +7,6 @@
  * Models Package V1.
  */
 @ApiVersion(version = "1")
-package example.models.v1;
+package example.model.v1;
 
 import com.yahoo.elide.annotation.ApiVersion;

@@ -7,7 +7,6 @@ package example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ImportRuntimeHints;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -20,7 +19,6 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
  * Example app using elide-spring.
  */
 @SpringBootApplication
-@EntityScan
 @ImportRuntimeHints(AppRuntimeHints.class)
 @OpenAPIDefinition(info = @Info(title = "My Title"), security = @SecurityRequirement(name = "bearerAuth"))
 @SecurityScheme(
